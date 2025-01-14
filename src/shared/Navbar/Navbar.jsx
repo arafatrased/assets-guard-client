@@ -11,18 +11,26 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { NavLink } from 'react-router-dom';
 
+let user = true;
 const pages = [
   { label: 'Home', path: '/' },
-  { label: 'Pricing', path: '/price/prices' },
-  { label: 'Blog', path: '/home/blogs' },
-  { label: 'awsome', path: '/home/awesome'}
+  { label: 'Join as HR Manager', path: '/joinhrmanager' },
+  { label: 'Login', path: '/login'}
 ];
+
+if(user){
+    pages.splice(1,0,{ label: 'Join as Employee', path: '/joinemployee' })
+}
+
+
+
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
