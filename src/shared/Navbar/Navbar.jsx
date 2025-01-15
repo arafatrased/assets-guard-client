@@ -13,16 +13,34 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 
-let user = true;
-const pages = [
-  { label: 'Home', path: '/' },
-  { label: 'Join as HR Manager', path: '/joinhrmanager' },
-  { label: 'Login', path: '/login'}
-];
-
-if(user){
-    pages.splice(1,0,{ label: 'Join as Employee', path: '/joinemployee' })
+let user = "admin";
+const pages = [];
+if(user == ""){
+  pages.push( { label: 'Home', path: '/' },
+    { label: 'Join as HR Manager', path: '/joinhrmanager' },
+    { label: 'Join as Employee', path: '/joinemployee' },
+    { label: 'Login', path: '/login'})
 }
+
+if (user == "employee") {
+  pages.push({ label: 'Home', path: '/' },
+    { label: 'My Asset', path: '/myasset' },
+    { label: 'My Team', path: '/myteam' },
+    { label: 'Request for Asset', path: '/assetrequest' },
+    { label: 'Profile', path: '/myprofile' },
+    { label: 'Log Out', path: '/logout' })
+}
+if (user == "admin") {
+  pages.push({ label: 'Home', path: '/' },
+    { label: 'Asset List', path: '/assetlist' },
+    { label: 'Add Asset', path: '/addasset' },
+    { label: 'All Request', path: '/allrequest' },
+    { label: 'Employee List', path: '/myemployeelist' },
+    { label: 'Add Employee', path: '/addemployee' },
+    { label: 'Log Out', path: '/logout' })
+}
+
+
 
 
 
@@ -52,11 +70,11 @@ function Navbar() {
 
   return (
     <AppBar position="static" sx={{
-        backgroundColor: '#f2f2f2', // Set background to white
-        color: 'red',          // Adjust text color for contrast
-        boxShadow: 'none', 
-              // Optional: Remove shadow for a flat design
-      }}>
+      backgroundColor: '#f2f2f2', // Set background to white
+      color: 'red',          // Adjust text color for contrast
+      boxShadow: 'none',
+      // Optional: Remove shadow for a flat design
+    }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
@@ -70,12 +88,12 @@ function Navbar() {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              
+
               color: 'black',
               textDecoration: 'none',
             }}
           >
-            ASSETS GUARD
+            {user == "admin" ? "Company Logo" : "Company Photo"}
           </Typography>
 
           {/* Mobile Menu */}
@@ -125,7 +143,7 @@ function Navbar() {
           </Box>
 
           {/* Desktop Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center'}}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {pages.map(({ label, path }) => (
               <Button
                 key={label}
@@ -136,7 +154,13 @@ function Navbar() {
                   textDecoration: 'none',
                   color: isActive ? 'orange' : 'black',
                 })}
-                sx={{ my: 2, display: 'block' }}
+                sx={{
+                  my: 2, display: 'block', marginRight: "4px", '&:hover': {
+                    backgroundColor: 'lightgray', // Change background color on hover
+                    color: 'blue', // Change text color on hover
+                    borderBottom: '3px solid #fff7ed', // Change border color on hover
+                  },
+                }}
               >
                 {label}
               </Button>

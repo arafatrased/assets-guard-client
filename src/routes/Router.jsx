@@ -5,6 +5,10 @@ import {
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home/Home';
 import Products from '../components/Products';
+import JoinHRManager from '../pages/JoinPages/JoinHRManager';
+import JoinEmployee from '../pages/JoinPages/JoinEmployee';
+import Login from '../pages/Login/Login';
+
 
 const router = createBrowserRouter([
     {
@@ -17,9 +21,23 @@ const router = createBrowserRouter([
           element: <Home></Home>,
         },
         {
-          path: '/products',
+          path: 'products',
           element: <Products></Products>
-        }
+        },
+        {
+          path: 'joinhrmanager',
+          element: <JoinHRManager></JoinHRManager>
+        },
+        {
+          path: 'joinemployee',
+          element: <JoinEmployee></JoinEmployee>
+        },
+        {
+          path: 'login',
+          element: <Login></Login>
+        },
+        
+
       ]
     },
   ]);
