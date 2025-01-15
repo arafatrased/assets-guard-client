@@ -10,6 +10,7 @@ import JoinEmployee from '../pages/JoinPages/JoinEmployee';
 import Login from '../pages/Login/Login';
 
 
+
 const router = createBrowserRouter([
     {
       path: "/",
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
           path: 'login',
           element: <Login></Login>
         },
+        
         
 
       ]

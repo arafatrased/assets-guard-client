@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const JoinEmployee = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const {createUser} = useContext(AuthContext);
+    const onSubmit = (data) => {
+
+        createUser(data.email, data.password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error =>console.log(error))
+
+        
+        
+        
+    
+    
+    }
     return (
         <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto'>
             <h1 className='text-center text-3xl mt-6 font-bold'>Join as Employee</h1>

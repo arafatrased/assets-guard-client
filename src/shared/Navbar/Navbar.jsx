@@ -13,13 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 
-let user = "admin";
+let user = "";
 const pages = [];
 if(user == ""){
   pages.push( { label: 'Home', path: '/' },
     { label: 'Join as HR Manager', path: '/joinhrmanager' },
     { label: 'Join as Employee', path: '/joinemployee' },
-    { label: 'Login', path: '/login'})
+    { label: 'Login', path: '/login'},
+   )
 }
 
 if (user == "employee") {
