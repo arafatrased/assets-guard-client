@@ -3,21 +3,41 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 
 
 const JoinHRManager = () => {
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUserEP } = useContext(AuthContext)
+    const { createUser, updateUserProfile } = useContext(AuthContext)
 
     // console.log(user);
     const onSubmit = (data) => {
+        console.log(data);
 
-        createUserEP(data.email, data.password)
+        createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                updateUserProfile(data.hrName, 'admin')
+                    .then(() => {
+                        const userInfo = {
+                            email: data.email,
+                            displayName: data.hrName,
+                            role: 'admin',
+                            companyName: data.companyName,
+                            companyLogo: data.companyLogo,
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res.data)
+                            })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)
@@ -61,7 +81,7 @@ const JoinHRManager = () => {
                     </div>
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Company Logo</span>
+                            <span className="label-text">Packages</span>
                         </label>
                         <select defaultValue="default" {...register('package', { required: true })}
                             className="select select-bordered w-full">
@@ -70,7 +90,7 @@ const JoinHRManager = () => {
                             <option value="standard">Standard Plan</option>
                             <option value="premium">Premium Plan</option>
                         </select>
-                        {errors.photoURL && <span className="text-red-600">Plan is required</span>}
+                        {errors.package && <span className="text-red-600">Plan is required</span>}
                     </div>
                     <div className="form-control">
                         <label className="label">

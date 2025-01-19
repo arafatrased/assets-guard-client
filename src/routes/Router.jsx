@@ -8,6 +8,9 @@ import Products from '../components/Products';
 import JoinHRManager from '../pages/JoinPages/JoinHRManager';
 import JoinEmployee from '../pages/JoinPages/JoinEmployee';
 import Login from '../pages/Login/Login';
+import ErrorPage from '../components/ErrorPage';
+import AddAsset from '../pages/AddAsset/AddAsset';
+import AssetList from '../pages/AssetList/AssetList';
 
 
 
@@ -15,7 +18,7 @@ const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayout></MainLayout>,
-      errorElement: <h1>404</h1>,
+      errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
           path: '/',
@@ -37,6 +40,14 @@ const router = createBrowserRouter([
           path: 'login',
           element: <Login></Login>
         },
+        {
+          path: 'addasset',
+          element: <AddAsset></AddAsset>
+        },
+        {
+          path: 'assetlist',
+          element: <AssetList></AssetList>
+        }
         
         
 

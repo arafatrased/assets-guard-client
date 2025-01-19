@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 export default function Banner() {
     return (
@@ -24,7 +25,7 @@ export default function Banner() {
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="w-64 h-64 rounded-xl flex flex-col justify-center border-2 items-center  backdrop-blur-sm">
                                 <h1 className='text-3xl font-bold mb-8'>HR Manager</h1>
-                                <button className='btn btn-outline'>Join as HR Manager</button>
+                                <Link to="/joinhrmanager" className='btn btn-outline'>Join as HR Manager</Link>
                             </div>
                         </div>
                     </div>
@@ -37,7 +38,7 @@ export default function Banner() {
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="w-64 h-64 rounded-xl flex flex-col justify-center items-center backdrop-blur-sm border-2">
                                 <h1 className='text-3xl font-bold mb-8'>Employee</h1>
-                                <button className='btn btn-outline'>Join as an Employee</button>
+                                <Link to="/joinemployee" className='btn btn-outline'>Join as an Employee</Link>
                             </div>
                         </div>
                     </div>

@@ -1,16 +1,36 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const JoinEmployee = () => {
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const {createUser, updateUserProfile} = useContext(AuthContext);
     const onSubmit = (data) => {
+        console.log(data)
 
         createUser(data.email, data.password)
         .then(result =>{
             const user = result.user;
-            console.log(user)
+            console.log(user);
+            updateUserProfile(data.empName, 'employee')
+            .then(()=>{
+                const userInfo = {
+                    email: data.email,
+                    displayName: data.empName,
+                    role: 'employee'
+                }
+                axiosPublic.post('/users', userInfo)
+                .then(res => {
+                    console.log(res.data)
+                })
+            })
+            .catch(error =>{
+                console.log(error)
+            })
+            
+
         })
         .catch(error =>console.log(error))
 

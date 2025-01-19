@@ -31,16 +31,18 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    const updateUserProfile = (name, photo) => {
+    const updateUserProfile = (name, role) => {
         return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
+            displayName: name,
+            role: role,
         });
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            setLoading(false)   
+            setLoading(false);
+            console.log(currentUser)
         });
         return () => {
             return unsubscribe();
