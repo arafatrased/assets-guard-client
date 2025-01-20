@@ -2,37 +2,53 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../provider/AuthProvider';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+
 
 const JoinEmployee = () => {
+    const { user } = useContext(AuthContext); // Assuming `logout` is a function provided by your AuthProvider
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const {createUser, updateUserProfile} = useContext(AuthContext);
+    const { data: navdata, refetch } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            if (!user?.email) return null;
+            const res = await axiosPublic.get(`/users?email=${user?.email}`);
+            return res.data;
+        },
+        enabled: !!user?.email,
+    });
+
     const onSubmit = (data) => {
         console.log(data)
-
         createUser(data.email, data.password)
         .then(result =>{
             const user = result.user;
             console.log(user);
-            updateUserProfile(data.empName, 'employee')
+            updateUserProfile(data.empName, data.photoURL)
             .then(()=>{
                 const userInfo = {
                     email: data.email,
                     displayName: data.empName,
-                    role: 'employee'
+                    role: 'employee',
+                    photoURL: data.photoURL
                 }
                 axiosPublic.post('/users', userInfo)
                 .then(res => {
-                    console.log(res.data)
+                    console.log(res.data);
+                    navigate('/myasset');
+                    refetch();
                 })
             })
             .catch(error =>{
                 console.log(error)
-            })
-            
-
+            })   
         })
         .catch(error =>console.log(error))
+       
 
         
         
@@ -57,7 +73,14 @@ const JoinEmployee = () => {
                         </label>
                         <input type="date"  {...register("DOF", { required: true })} placeholder="Date of Birth" className="input input-bordered" />
                         {errors.DOF && <span className="text-red-600">Date of Birth is required</span>}
-                    </div>
+                </div>
+                <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Photo URL <span className='text-red-700'>*</span></span>
+                        </label>
+                        <input type="text"  {...register("photoURL")} placeholder="Date of Birth" className="input input-bordered" />
+                        {errors.DOF && <span className="text-red-600">PhotoURL</span>}
+                </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email <span className='text-red-700'>*</span></span>

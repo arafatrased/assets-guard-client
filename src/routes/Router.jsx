@@ -11,6 +11,10 @@ import Login from '../pages/Login/Login';
 import ErrorPage from '../components/ErrorPage';
 import AddAsset from '../pages/AddAsset/AddAsset';
 import AssetList from '../pages/AssetList/AssetList';
+import MyAsset from '../pages/myAsset/MyAsset';
+import EmployeeList from '../pages/EmployeeList/EmployeeList';
+import AddEmployee from '../pages/AddEmployee/AddEmployee';
+import PackagePage from '../pages/PackagePage/PackagePage';
 
 
 
@@ -47,6 +51,22 @@ const router = createBrowserRouter([
         {
           path: 'assetlist',
           element: <AssetList></AssetList>
+        },
+        {
+          path: '/myasset',
+          element: <MyAsset></MyAsset>
+        },
+        {
+          path: '/myemployeelist',
+          element: <EmployeeList></EmployeeList>
+        },
+        {
+          path: '/addemployee',
+          element: <AddEmployee></AddEmployee>
+        },
+        {
+          path: '/packages',
+          element: <PackagePage></PackagePage>
         }
         
         

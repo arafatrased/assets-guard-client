@@ -1,206 +1,114 @@
-import * as React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { NavLink } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from '../../provider/AuthProvider';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
-function Navbar() {
-  const axiosPublic = useAxiosPublic();
-  const { user, logOut } = useAuth(); // Assuming `logout` is a function from `useAuth` to handle user logout.
+const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext); // Assuming `logout` is a function provided by your AuthProvider
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate()
 
-  // Fetch user data
-  const { data: navUser = null, refetch } = useQuery({
-    queryKey: ['navUser', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return null;
-      const res = await axiosPublic.get(`/users?email=${user.email}`);
-      return res.data;
-    },
-    enabled: !!user?.email,
-  });
-  
+    // Fetch user role from API
+    const { data, refetch } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            if (!user?.email) return null;
+            const res = await axiosPublic.get(`/users?email=${user?.email}`);
+            return res.data;
+        },
+        enabled: !!user?.email,
+    });
 
-  // Logout handler
-  const handleLogout = () => {
-    logOut(); // Replace with your actual logout logic (e.g., clearing tokens).
-    console.log('User logged out');
-  };
+    // Handle logout when user does not exist
+    const handleLogout = async () => {
+        try {
+            await logOut();
+            refetch();
+            navigate('/')
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
-  // Define navigation pages
-  const pages = [
-    { label: 'Home', path: '/' },
-  ];
+    useEffect(() => {
+        if (!user) {
+            handleLogout();
+        }
+    }, [user]); // Run effect when user changes
 
-  if (!navUser) {
-    pages.push(
-      { label: 'Join as HR Manager', path: '/joinhrmanager' },
-      { label: 'Join as Employee', path: '/joinemployee' },
-      { label: 'Login', path: '/login' }
+    useEffect(()=>{
+        refetch();
+    }, [user?.email])
+
+    // Generate navigation links dynamically
+    const getLinks = () => {
+        if (!data) {
+            // User not logged in
+            return [
+                { to: '/', label: 'Home' },
+                { to: '/joinhrmanager', label: 'Join as HR Manager' },
+                { to: '/joinemployee', label: 'Join as Employee' },
+                { to: '/login', label: 'Login' },
+            ];
+        } else if (data.role === 'admin') {
+            // Admin links
+            return [
+                { to: '/', label: 'Home' },
+                { label: 'Asset List', to: '/assetlist' },
+                { label: 'Add Asset', to: '/addasset' },
+                { label: 'All Request', to: '/allrequest' },
+                { label: 'Employee List', to: '/myemployeelist' },
+                { label: 'Add Employee', to: '/addemployee' },
+            ];
+        } else if (data.role === 'employee') {
+            // Employee links
+            return [
+                { to: '/', label: 'Home' },
+                { label: 'My Asset', to: '/myasset' },
+                { label: 'My Team', to: '/myteam' },
+                { label: 'Request for Asset', to: '/assetrequest' },
+                { label: 'Profile', to: '/myprofile' },
+            ];
+        }
+    };
+
+    const links = getLinks();
+
+    return (
+        <div className="navbar bg-base-100 font-mono">
+            <div className="navbar-start">
+                <a className="btn btn-ghost text-xl">Asset Guard</a>
+            </div>
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal px-1">
+                    {links.map(({ to, label }, idx) => (
+                        <li key={idx}>
+                            <NavLink
+                                to={to}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'flex text-orange-700 hover:font-semibold items-center gap-2 py-2 pr-4'
+                                        : 'flex items-center gap-2 py-2'
+                                }
+                            >
+                                {label}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="navbar-end">
+                {data ? (
+                    <button onClick={handleLogout} className="btn">
+                        Logout
+                    </button>
+                ) : (
+                    <a className="btn">User</a>
+                )}
+            </div>
+        </div>
     );
-  } else if (navUser.role === 'employee') {
-    pages.push(
-      { label: 'My Asset', path: '/myasset' },
-      { label: 'My Team', path: '/myteam' },
-      { label: 'Request for Asset', path: '/assetrequest' },
-      { label: 'Profile', path: '/myprofile' },
-      { label: 'Log Out', path: '/logout', onClick: handleLogout }
-    );
-  } else if (navUser.role === 'admin') {
-    pages.push(
-      { label: 'Asset List', path: '/assetlist' },
-      { label: 'Add Asset', path: '/addasset' },
-      { label: 'All Request', path: '/allrequest' },
-      { label: 'Employee List', path: '/myemployeelist' },
-      { label: 'Add Employee', path: '/addemployee' },
-      { label: 'Log Out', path: '/logout', onClick: handleLogout }
-    );
-  }
-
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  return (
-    <AppBar position="static" sx={{ backgroundColor: '#f2f2f2', color: 'black', boxShadow: 'none' }}>
-      <Container maxWidth="2xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              color: 'black',
-              textDecoration: 'none',
-            }}
-          >
-            {user?.role === 'admin' ? 'Company Logo' : 'Company Photo'}
-          </Typography>
-
-          {/* Mobile Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-              keepMounted
-              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {pages.map(({ label, path, onClick }) => (
-                <MenuItem
-                  key={label}
-                  onClick={(e) => {
-                    if (onClick) {
-                      e.preventDefault();
-                      onClick();
-                    }
-                    handleCloseNavMenu();
-                  }}
-                >
-                  <Typography textAlign="center">
-                    <NavLink
-                      to={path}
-                      style={({ isActive }) => ({
-                        textDecoration: 'none',
-                        color: isActive ? 'blue' : 'black',
-                      })}
-                    >
-                      {label}
-                    </NavLink>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          {/* Desktop Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-            {pages.map(({ label, path, onClick }) => (
-              <Button
-                key={label}
-                onClick={(e) => {
-                  if (onClick) {
-                    e.preventDefault();
-                    onClick();
-                  }
-                  handleCloseNavMenu();
-                }}
-                component={NavLink}
-                to={path}
-                style={({ isActive }) => ({
-                  textDecoration: 'none',
-                  color: isActive ? 'orange' : 'black',
-                })}
-                sx={{
-                  my: 2,
-                  display: 'block',
-                  marginRight: '4px',
-                  '&:hover': {
-                    backgroundColor: 'lightgray',
-                    color: 'blue',
-                  },
-                }}
-              >
-                {label}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              keepMounted
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Account</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
-}
+};
 
 export default Navbar;

@@ -31,10 +31,10 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    const updateUserProfile = (name, role) => {
+    const updateUserProfile = (name, photoURL) => {
         return updateProfile(auth.currentUser, {
             displayName: name,
-            role: role,
+            photoURL: photoURL,
         });
     }
 
