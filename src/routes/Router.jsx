@@ -15,6 +15,7 @@ import MyAsset from '../pages/myAsset/MyAsset';
 import EmployeeList from '../pages/EmployeeList/EmployeeList';
 import AddEmployee from '../pages/AddEmployee/AddEmployee';
 import PackagePage from '../pages/PackagePage/PackagePage';
+import UpdateAsset from '../components/UpdateAsset';
 
 
 
@@ -27,10 +28,6 @@ const router = createBrowserRouter([
         {
           path: '/',
           element: <Home></Home>,
-        },
-        {
-          path: 'products',
-          element: <Products></Products>
         },
         {
           path: 'joinhrmanager',
@@ -68,8 +65,12 @@ const router = createBrowserRouter([
         {
           path: '/packages',
           element: <PackagePage></PackagePage>
+        },
+        {
+          path: 'updateasset/:id',
+          element: <UpdateAsset></UpdateAsset>,
+          loader: ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
         }
-        
         
 
       ]

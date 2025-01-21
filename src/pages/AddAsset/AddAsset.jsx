@@ -22,13 +22,12 @@ const AddAsset = () => {
   };
 
   const handleQuantityChange = (e) => {
-    const value = parseInt(e.target.value); // Ensure quantity is at least 1
+    const value = parseInt(e.target.value);
     setQuantity(value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(quantity, category, selectedItem);
     const asset = {
         product_type: category,
         product_name: selectedItem,

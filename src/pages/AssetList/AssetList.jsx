@@ -4,18 +4,25 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 const AssetTable = () => {
+    const navigate = useNavigate()
     const axiosPublic = useAxiosPublic();
     const [assets, setAssets] = useState([]);
-    const { data: asset = [], refetch } = useQuery({
+    const { data: queryAssets = [], refetch } = useQuery({
         queryKey: ['assets'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/assets')
-            return setAssets(res.data)
-        }
-    })
+            const res = await axiosPublic.get('/assets');
+            return res.data; // Fetch and return the data
+        },
+    });
+    
+    useEffect(() => {
+        setAssets(queryAssets); // Update local state whenever queryAssets changes
+    }, [queryAssets]);
 
 
     const [searchText, setSearchText] = useState('');
@@ -70,17 +77,51 @@ const AssetTable = () => {
     const handleSortChange = () => {
         setSortOrder(prevSortOrder => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
     };
-
-    // Delete function
-    const handleDelete = (id) => {
-        console.log(id)
+     // Delete function
+     const handleDelete = (id) => {
+        console.log(id);
+        axiosPublic.delete(`/deleteasset/${id}`)
+        .then(res => {
+            refetch();
+            toast.success('Asset deleted successfully');
+        });
     };
+
+    const modernDelete = id => {
+        toast(t => (
+          <div className='flex gap-3 items-center'>
+            <div>
+              <p>
+                Are you <b>sure?</b>
+              </p>
+            </div>
+            <div className='gap-2 flex'>
+              <button
+                className='bg-red-400 text-white px-3 py-1 rounded-md'
+                onClick={() => {
+                  toast.dismiss(t.id)
+                  handleDelete(id)
+                }}
+              >
+                Yes
+              </button>
+              <button
+                className='bg-green-400 text-white px-3 py-1 rounded-md'
+                onClick={() => toast.dismiss(t.id)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ))
+      }
+   
+
 
     // Update function
     const handleUpdate = (id) => {
-        console.log(id)
-
-
+        console.log(id);
+        navigate(`/updateasset/${id}`);
     };
 
     const columns = [
@@ -122,7 +163,7 @@ const AssetTable = () => {
             cell: (row) => (
                 <div>
                     <button className='mr-2' onClick={() => handleUpdate(row._id)}><FiEdit /></button>
-                    <button className='text-red-600' onClick={() => handleDelete(row._id)}><RiDeleteBin2Fill /></button>
+                    <button className='text-red-600' onClick={() => modernDelete(row._id)}><RiDeleteBin2Fill /></button>
                 </div>
             ),
         },

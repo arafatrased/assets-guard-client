@@ -78,7 +78,7 @@ const JoinEmployee = () => {
                         <label className="label">
                             <span className="label-text">Photo URL <span className='text-red-700'>*</span></span>
                         </label>
-                        <input type="text"  {...register("photoURL")} placeholder="Date of Birth" className="input input-bordered" />
+                        <input type="text"  {...register("photoURL")} placeholder="Photo URL" className="input input-bordered" />
                         {errors.DOF && <span className="text-red-600">PhotoURL</span>}
                 </div>
                 <div className="form-control">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "react-data-table-component";
+import toast from "react-hot-toast";
 
 const EmployeeList = () => {
     const [employees, setEmployees] = useState([]);
@@ -26,11 +27,42 @@ const EmployeeList = () => {
 
 
     const handleRemove = (id) => {
-        console.log(id)
-        // const updatedEmployees = employees.filter((employee) => employee._id !== id);
-        // setEmployees(updatedEmployees);
-        // setTeamMemberCount(updatedEmployees.length);
+        axiosPublic.delete(`/deleteemployee/${id}`).then((res) => {
+            toast.success("Employee removed successfully");
+            refetch();
+        });
+         const updatedEmployees = employees.filter((employee) => employee._id !== id);
+         setEmployees(updatedEmployees);
+         setTeamMemberCount(updatedEmployees.length);
     };
+    const modernRemove = id => {
+        toast(t => (
+          <div className='flex gap-3 items-center'>
+            <div>
+              <p>
+                Want to <b>Remove?</b>
+              </p>
+            </div>
+            <div className='gap-2 flex'>
+              <button
+                className='bg-red-400 text-white px-3 py-1 rounded-md'
+                onClick={() => {
+                  toast.dismiss(t.id)
+                  handleRemove(id)
+                }}
+              >
+                Yes
+              </button>
+              <button
+                className='bg-green-400 text-white px-3 py-1 rounded-md'
+                onClick={() => toast.dismiss(t.id)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ))
+      }
 
     const columns = [
         {
@@ -63,12 +95,12 @@ const EmployeeList = () => {
         {
             name: "Actions",
             cell: (row) => (
-                <button
-                    onClick={() => handleRemove(row._id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                >
-                    Remove
-                </button>
+                row.role === "admin" ? '': <button
+                onClick={() => modernRemove(row._id)}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+                Remove
+            </button>
             ),
             ignoreRowClick: true,
             allowOverflow: true,
