@@ -4,10 +4,11 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import DataTable from "react-data-table-component";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const AddEmployee = () => {
+  const {user} = useAuth();
   const packageLimit = useLoaderData();
-  console.log(packageLimit);
   const [employees, setEmployees] = useState([]);
   const [teamMemberCount, setTeamMemberCount] = useState(0);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
@@ -22,6 +23,17 @@ const AddEmployee = () => {
       return res.data; 
     },
   });
+  const { data:currentUser,} = useQuery({
+          queryKey: ['currentUser'],
+          queryFn: async () => {
+              if (!user?.email) return null;
+              const res = await axiosPublic.get(`/users?email=${user?.email}`);
+              return res.data;
+          },
+          enabled: !!user?.email,
+      });
+
+      console.log(currentUser);
 
   useEffect(() => {
     if (data) {
@@ -41,8 +53,20 @@ const AddEmployee = () => {
       setEmployees((prevState) =>
         prevState.filter((employee) => !selectedEmployees.includes(employee._id))
       );
-    }
+    };
+    console.log(updatedEmployees);
     setTeamMemberCount(teamMemberCount + selectedEmployees.length);
+
+    
+    const updateUser =  {
+        emails: updatedEmployees.map(item => item.email), // Collect all emails
+        companyName: currentUser.companyName,
+    }
+
+    axiosPublic.post('/update-users', updateUser)
+    .then(res => {
+      console.log(res.data);
+    })
     // Optionally, update your backend with the new team members.
     // axiosPublic.post('/add-to-team', { employees: updatedEmployees })
     setEmployees((prevState) =>
