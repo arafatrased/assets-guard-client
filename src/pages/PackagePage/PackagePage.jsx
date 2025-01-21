@@ -2,6 +2,7 @@ import React from "react";
 
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const PackagePage = () => {
   const navigate = useNavigate()
@@ -19,8 +20,8 @@ const PackagePage = () => {
     try {
       const res = await axiosPublic.post("/update-package", { newLimit: members });
       if (res.status === 200) {
-        alert(`Successfully purchased package for ${members} members!`);
-        navigare("/employeelist"); // Redirect to employee page after purchase
+        toast.success(`Successfully purchased package for ${members} members!`);
+        navigate("/addemployee"); // Redirect to employee page after purchase
       } else {
         alert("Failed to purchase the package. Please try again.");
       }

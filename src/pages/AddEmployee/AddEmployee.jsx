@@ -2,19 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import DataTable from "react-data-table-component";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AddEmployee = () => {
+  const packageLimit = useLoaderData();
+  console.log(packageLimit);
   const [employees, setEmployees] = useState([]);
   const [teamMemberCount, setTeamMemberCount] = useState(0);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   // Fetch employees who are not affiliated with any company
   const { data, refetch } = useQuery({
     queryKey: ["unaffiliatedEmployees"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/unaffiliated-employees"); // Modify endpoint as needed
-      return res.data; // Ensure this matches your API response structure
+      const res = await axiosPublic.get("/unaffiliated-employees"); 
+      return res.data; 
     },
   });
 
@@ -30,6 +35,13 @@ const AddEmployee = () => {
     const updatedEmployees = employees.filter((employee) =>
       selectedEmployees.includes(employee._id)
     );
+    if(updatedEmployees.length + teamMemberCount > packageLimit.limit) {
+      toast.error("You have reached the package limit. Please upgrade your package to add more team members.");
+      setSelectedEmployees([])
+      setEmployees((prevState) =>
+        prevState.filter((employee) => !selectedEmployees.includes(employee._id))
+      );
+    }
     setTeamMemberCount(teamMemberCount + selectedEmployees.length);
     // Optionally, update your backend with the new team members.
     // axiosPublic.post('/add-to-team', { employees: updatedEmployees })
@@ -50,7 +62,7 @@ const AddEmployee = () => {
 
   // Redirect to the package purchase page
   const handleIncreaseLimit = () => {
-    // history.push("/packages");
+    navigate("/packages");
   };
 
   // Define columns for the employee data table
@@ -74,6 +86,7 @@ const AddEmployee = () => {
         <img
           src={row.photoURL || "https://i.ibb.co.com/54Xx1Gc/39653-2011613-updates.webp"}
           alt={row.name}
+          refferredPolicy="no-referrer"
           className="w-12 h-12 rounded-full"
         />
       ),
