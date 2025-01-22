@@ -29,7 +29,6 @@ const { data: teams = [], refetch } = useQuery({
 //       </div>
 //     );
 //   }
-console.log(teams);
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-6">My Team</h1>

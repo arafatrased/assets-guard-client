@@ -8,7 +8,6 @@ const EmployeeLayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-
             <Outlet></Outlet>
             <Toaster />
             <Footer></Footer>
