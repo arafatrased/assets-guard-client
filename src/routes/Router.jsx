@@ -16,6 +16,13 @@ import EmployeeList from '../pages/EmployeeList/EmployeeList';
 import AddEmployee from '../pages/AddEmployee/AddEmployee';
 import PackagePage from '../pages/PackagePage/PackagePage';
 import UpdateAsset from '../components/UpdateAsset';
+import AdminLayout from '../layouts/AdminLayout';
+import Admin from '../pages/Admin/Admin';
+import EmployeeLayout from '../layouts/EmployeeLayout';
+import Employee from '../pages/Employee/Employee';
+import AssetRequestPage from '../pages/AssetRequestPage/AssetRequestPage';
+import MyRequestedAssets from '../pages/MyRequestedAssets/MyRequestedAssets';
+import MyTeams from '../pages/MyTeams/MyTeams';
 
 
 
@@ -41,27 +48,8 @@ const router = createBrowserRouter([
           path: 'login',
           element: <Login></Login>
         },
-        {
-          path: 'addasset',
-          element: <AddAsset></AddAsset>
-        },
-        {
-          path: 'assetlist',
-          element: <AssetList></AssetList>
-        },
-        {
-          path: '/myasset',
-          element: <MyAsset></MyAsset>
-        },
-        {
-          path: '/myemployeelist',
-          element: <EmployeeList></EmployeeList>
-        },
-        {
-          path: '/addemployee',
-          element: <AddEmployee></AddEmployee>,
-          loader: () => fetch('http://localhost:5000/package')
-        },
+        
+          
         {
           path: '/packages',
           element: <PackagePage></PackagePage>
@@ -71,10 +59,65 @@ const router = createBrowserRouter([
           element: <UpdateAsset></UpdateAsset>,
           loader: ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
         }
-        
 
       ]
     },
+    {
+      path: "admin",
+      element: <AdminLayout/>,
+      children: [
+        {
+          index: true,
+          element: <Admin></Admin>
+        },
+        {
+          path: 'assetlist',
+          element: <AssetList></AssetList>
+        },
+        {
+          path: 'addasset',
+          element: <AddAsset></AddAsset>
+        },
+        {
+          path: 'myemployeelist',
+          element: <EmployeeList></EmployeeList>
+        },
+        {
+          path: 'addemployee',
+          element: <AddEmployee></AddEmployee>,
+          loader: () => fetch('http://localhost:5000/package')
+        },
+
+      ]
+    },
+    {
+      path: 'employee',
+      element: <EmployeeLayout></EmployeeLayout>,
+      children: [
+        {
+          index: true,
+          element: <Employee></Employee>
+        },
+        {
+          path: 'myasset',
+          element: <MyAsset></MyAsset>
+        },
+        {
+          path: 'assetrequest',
+          element: <AssetRequestPage></AssetRequestPage>
+        },
+        {
+          path: "myrequestedasset",
+          element: <MyRequestedAssets></MyRequestedAssets>
+        },
+        {
+          path: 'myteam',
+          element: <MyTeams></MyTeams>
+        }
+
+
+      ]
+    }
   ]);
 
 export default router;

@@ -49,20 +49,21 @@ const Navbar = () => {
             ];
         } else if (data.role === 'admin') {
             return [
-                { to: '/', label: 'Home' },
-                { to: '/assetlist', label: 'Asset List' },
-                { to: '/addasset', label: 'Add Asset' },
-                { to: '/allrequest', label: 'All Request' },
-                { to: '/myemployeelist', label: 'Employee List' },
-                { to: '/addemployee', label: 'Add Employee' },
+                { to: '/admin', label: 'Home' },
+                { to: '/admin/assetlist', label: 'Asset List' },
+                { to: '/admin/addasset', label: 'Add Asset' },
+                { to: '/admin/allrequest', label: 'All Request' },
+                { to: '/admin/myemployeelist', label: 'Employee List' },
+                { to: '/admin/addemployee', label: 'Add Employee' },
+                { to: '/admin/myprofile', label: 'Profile' }
             ];
         } else {
             return [
-                { to: '/', label: 'Home' },
-                { to: '/myasset', label: 'My Asset' },
-                { to: '/myteam', label: 'My Team' },
-                { to: '/assetrequest', label: 'Request for Asset' },
-                { to: '/myprofile', label: 'Profile' },
+                { to: '/employee', label: 'Home' },
+                { to: '/employee/myrequestedasset', label: 'My Asset' },
+                { to: '/employee/myteam', label: 'My Team' },
+                { to: '/employee/assetrequest', label: 'Request for Asset' },
+                { to: '/employee/myprofile', label: 'Profile' },
             ];
         }
     };

@@ -21,7 +21,7 @@ const PackagePage = () => {
       const res = await axiosPublic.post("/update-package", { newLimit: members });
       if (res.status === 200) {
         toast.success(`Successfully purchased package for ${members} members!`);
-        navigate("/addemployee"); // Redirect to employee page after purchase
+        navigate("/admin/addemployee"); // Redirect to employee page after purchase
       } else {
         alert("Failed to purchase the package. Please try again.");
       }

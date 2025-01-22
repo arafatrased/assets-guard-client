@@ -39,7 +39,7 @@ const JoinEmployee = () => {
                 axiosPublic.post('/users', userInfo)
                 .then(res => {
                     console.log(res.data);
-                    navigate('/myasset');
+                    navigate('/employee');
                     refetch();
                 })
             })
