@@ -4,7 +4,6 @@ import {
   } from "react-router-dom";
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home/Home';
-import Products from '../components/Products';
 import JoinHRManager from '../pages/JoinPages/JoinHRManager';
 import JoinEmployee from '../pages/JoinPages/JoinEmployee';
 import Login from '../pages/Login/Login';
@@ -24,6 +23,7 @@ import AssetRequestPage from '../pages/AssetRequestPage/AssetRequestPage';
 import MyRequestedAssets from '../pages/MyRequestedAssets/MyRequestedAssets';
 import MyTeams from '../pages/MyTeams/MyTeams';
 import Profile from '../pages/Profile/Profile';
+import AllRequest from '../pages/AllRequest/AllRequest';
 
 
 
@@ -78,6 +78,10 @@ const router = createBrowserRouter([
         {
           path: 'addasset',
           element: <AddAsset></AddAsset>
+        },
+        {
+          path: 'allrequest',
+          element: <AllRequest></AllRequest>
         },
         {
           path: 'myemployeelist',

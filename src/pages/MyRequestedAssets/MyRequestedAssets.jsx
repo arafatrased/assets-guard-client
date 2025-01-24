@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import DataTable from "react-data-table-component";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import AssetPrintDocument from '../../utilities/AssetPrintDocument';
 
 const MyRequestedAssets = () => {
   const { user } = useAuth();
@@ -46,10 +48,16 @@ const MyRequestedAssets = () => {
   };
 
   const handlePrint = (request) => {
-    // Implement print functionality here (e.g., using React-PDF)
+    return (
+      <PDFDownloadLink
+        document={<AssetPrintDocument key={request._id} request={request} />}
+        fileName={`Asset_Request_${request.product_name}.pdf`}
+      >
+        {({ loading }) => (loading ? 'Preparing PDF...' : 'Download PDF')}
+      </PDFDownloadLink>
+    );
   };
 
-  // Define table columns
   const columns = [
     {
       name: "Asset Name",
@@ -113,7 +121,7 @@ const MyRequestedAssets = () => {
     <div className="p-5 font-mono w-10/12 mx-auto">
       <h1 className="text-2xl text-center uppercase font-bold mb-8">My Requested Assets</h1>
 
-      {/* Search and Filter Section */}
+
       <div className="flex justify-center gap-4 mb-6">
         <input
           type="text"
@@ -143,7 +151,7 @@ const MyRequestedAssets = () => {
         </select>
       </div>
 
-      {/* Data Table Section */}
+
       <DataTable
         columns={columns}
         data={requests}
