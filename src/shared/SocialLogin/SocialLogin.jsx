@@ -22,6 +22,7 @@ const SocialLogin = () => {
             .then(res =>{
                 console.log(res.data);
                 navigate('/');
+                
             })
         })
     }
