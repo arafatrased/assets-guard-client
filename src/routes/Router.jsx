@@ -23,6 +23,7 @@ import Employee from '../pages/Employee/Employee';
 import AssetRequestPage from '../pages/AssetRequestPage/AssetRequestPage';
 import MyRequestedAssets from '../pages/MyRequestedAssets/MyRequestedAssets';
 import MyTeams from '../pages/MyTeams/MyTeams';
+import Profile from '../pages/Profile/Profile';
 
 
 
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
         {
           path: 'myteam',
           element: <MyTeams></MyTeams>
+        },
+        {
+          path: 'myprofile',
+          element: <Profile></Profile>
         }
 
 
