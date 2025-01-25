@@ -24,6 +24,7 @@ import MyRequestedAssets from '../pages/MyRequestedAssets/MyRequestedAssets';
 import MyTeams from '../pages/MyTeams/MyTeams';
 import Profile from '../pages/Profile/Profile';
 import AllRequest from '../pages/AllRequest/AllRequest';
+import MyProfile from '../pages/MyProfile/MyProfile';
 
 
 
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
           element: <AddEmployee></AddEmployee>,
           loader: () => fetch('http://localhost:5000/package')
         },
+        {
+          path: 'myprofile',
+          element: <MyProfile></MyProfile>
+        }
 
       ]
     },
