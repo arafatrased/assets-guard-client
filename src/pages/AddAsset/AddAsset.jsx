@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const AddAsset = () => {
   const [category, setCategory] = useState("");
@@ -32,7 +33,7 @@ const AddAsset = () => {
         product_type: category,
         product_name: selectedItem,
         product_quantity: quantity,
-        added_time: new Date().toLocaleDateString()
+        added_time: new Date()
     }
     axiosPublic.post('/addassets', asset)
     .then(res =>{
@@ -45,6 +46,9 @@ const AddAsset = () => {
 
   return (
     <div className="flex items-center font-mono justify-center min-h-[70vh] bg-gray-100">
+      <Helmet>
+        <title>HR | Add Asset</title>
+      </Helmet>
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-lg w-8/12 lg:w-6/12  mx-auto"

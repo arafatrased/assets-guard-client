@@ -3,6 +3,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Profile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
@@ -35,7 +36,10 @@ const Profile = () => {
             });
     }
     return (
-        <div className='min-h-screen font-mono w-10/12 mx-auto p-5'>
+        <div className='min-h-screen font-mono w-11/12 md:w-9/12 mx-auto p-5'>
+            <Helmet>
+                <title>Employee | Update Profile</title>
+            </Helmet>
             <h2 className='my-8 font-mono font-bold uppercase text-center'>Update Your Profile</h2>
 
             <form onSubmit={handleProfileUpdate} className='flex flex-col gap-4 items-center'>

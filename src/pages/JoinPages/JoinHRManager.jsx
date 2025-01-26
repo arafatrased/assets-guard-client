@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../provider/AuthProvider';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 
 
 
 const JoinHRManager = () => {
+    const navigate = useNavigate()
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext)
@@ -30,7 +32,7 @@ const JoinHRManager = () => {
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
-                                console.log(res.data)
+                                navigate('/login')
                             })
                     })
                     .catch(error => {
@@ -43,7 +45,10 @@ const JoinHRManager = () => {
 
     }
     return (
-        <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto'>
+        <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto font-mono'>
+            <Helmet>
+                <title>Join as HR Manager</title>
+            </Helmet>
             <div>
 
                 <h1 className='text-center text-3xl mt-6 font-bold'>Join as HR Manager</h1>
@@ -103,17 +108,17 @@ const JoinHRManager = () => {
                         </label>
                         <input type="password"  {...register("password", {
                             required: true,
-                            // minLength: 6,
-                            // maxLength: 20,
-                            // pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                            minLength: 6,
+                            maxLength: 20,
+                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
                         })} placeholder="password" className="input input-bordered" />
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
-                        {/* {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                        {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>} */}
+                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
                         {/* <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label> */}
+                        </label> */}
                     </div>
                     <div className="form-control mt-6">
                         <input className="btn btn-outline border-b-4 hover:bg-green-600 border-b-orange-200" type="submit" value="Join HR Manager" />

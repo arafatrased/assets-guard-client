@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import DataTable from 'react-data-table-component';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 const AllRequestsPage = () => {
   const axiosPublic = useAxiosPublic();
@@ -96,6 +97,9 @@ const AllRequestsPage = () => {
 
   return (
     <div className="p-6">
+      <Helmet>
+        <title>HR | All Requests</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4">All Requests</h1>
 
 

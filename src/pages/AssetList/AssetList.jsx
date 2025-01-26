@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 
 const AssetTable = () => {
@@ -32,7 +33,7 @@ const AssetTable = () => {
 
     const filteredAssets = assets
     .filter(item => {
-        const stockStatus = item.product_quantity === 0 ? 'Out-of-Stock' : 'Available';
+        const stockStatus = item.product_quantity <= 1 ? 'Out-of-Stock' : 'Available';
         
         return (
             item.product_name.toLowerCase().includes(searchText.toLowerCase()) &&
@@ -171,6 +172,9 @@ const AssetTable = () => {
 
     return (
         <div className='w-11/12 mx-auto my-2 font-mono'>
+            <Helmet>
+                <title>HR | Asset List</title>
+            </Helmet>
             <h2 className="text-2xl font-bold font-mono my-4 text-center uppercase">Asset List</h2>
             <div>
                 <input

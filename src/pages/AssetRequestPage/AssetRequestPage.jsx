@@ -3,6 +3,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AssetRequestPage = () => {
     const {user} = useAuth()
@@ -51,6 +52,9 @@ const AssetRequestPage = () => {
 
     return (
         <div className="w-11/12 mx-auto my-5 font-mono">
+            <Helmet>
+                <title>Employee | Asset Request</title>
+            </Helmet>
             <h1 className="text-2xl text-center font-bold mb-6 uppercase">Request an Asset</h1>
 
             {/* Search and Filter Section */}

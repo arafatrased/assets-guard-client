@@ -6,6 +6,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { use } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AddEmployee = () => {
   const { user } = useAuth();
@@ -67,11 +68,13 @@ const AddEmployee = () => {
     const updateUser = {
       emails: updatedEmployees.map(item => item.email), // Collect all emails
       companyName: currentUser.companyName,
+      role: 'employee',
+      companyLogo: currentUser.companyLogo,
     }
 
     axiosPublic.post('/update-users', updateUser)
       .then(res => {
-
+        toast.success("Employee added successfully");
       })
     // Optionally, update your backend with the new team members.
     // axiosPublic.post('/add-to-team', { employees: updatedEmployees })
@@ -134,7 +137,9 @@ const AddEmployee = () => {
 
   return (
     <div className="w-11/12 mx-auto my-5 font-mono">
-      {/* Package Section */}
+      <Helmet>
+        <title>HR | Add Employee</title>
+      </Helmet>
       <div className="mb-8 p-4 border border-gray-300 rounded-lg">
         <h2 className="text-2xl font-semibold text-center mb-4">Package Section</h2>
         <p className="text-center mb-4">Team Member Count: {teamMemberCount}</p>

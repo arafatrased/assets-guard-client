@@ -10,9 +10,12 @@ This is an asset management System.
 
 ## npm Pakages
 1. react-icons
-2. react helmate
+2. React Helmet async
 3. swiper js
-4. 
+4. react-PDF
+5. react-data-table-component
+6. 
+
 
 
 

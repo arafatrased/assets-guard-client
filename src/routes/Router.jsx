@@ -10,7 +10,6 @@ import Login from '../pages/Login/Login';
 import ErrorPage from '../components/ErrorPage';
 import AddAsset from '../pages/AddAsset/AddAsset';
 import AssetList from '../pages/AssetList/AssetList';
-import MyAsset from '../pages/myAsset/MyAsset';
 import EmployeeList from '../pages/EmployeeList/EmployeeList';
 import AddEmployee from '../pages/AddEmployee/AddEmployee';
 import PackagePage from '../pages/PackagePage/PackagePage';
@@ -25,6 +24,7 @@ import MyTeams from '../pages/MyTeams/MyTeams';
 import Profile from '../pages/Profile/Profile';
 import AllRequest from '../pages/AllRequest/AllRequest';
 import MyProfile from '../pages/MyProfile/MyProfile';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -54,11 +54,11 @@ const router = createBrowserRouter([
           
         {
           path: '/packages',
-          element: <PackagePage></PackagePage>
+          element: <PrivateRoute><PackagePage></PackagePage></PrivateRoute>,
         },
         {
           path: 'updateasset/:id',
-          element: <UpdateAsset></UpdateAsset>,
+          element: <PrivateRoute><UpdateAsset></UpdateAsset></PrivateRoute>,
           loader: ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
         }
 
@@ -66,67 +66,63 @@ const router = createBrowserRouter([
     },
     {
       path: "admin",
-      element: <AdminLayout/>,
+      element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
       children: [
         {
           index: true,
-          element: <Admin></Admin>
+          element: <PrivateRoute><Admin></Admin></PrivateRoute>
         },
         {
           path: 'assetlist',
-          element: <AssetList></AssetList>
+          element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
         },
         {
           path: 'addasset',
-          element: <AddAsset></AddAsset>
+          element: <PrivateRoute><AddAsset></AddAsset></PrivateRoute>
         },
         {
           path: 'allrequest',
-          element: <AllRequest></AllRequest>
+          element: <PrivateRoute><AllRequest></AllRequest></PrivateRoute>
         },
         {
           path: 'myemployeelist',
-          element: <EmployeeList></EmployeeList>
+          element: <PrivateRoute><EmployeeList></EmployeeList></PrivateRoute>
         },
         {
           path: 'addemployee',
-          element: <AddEmployee></AddEmployee>,
+          element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
           loader: () => fetch('http://localhost:5000/package')
         },
         {
           path: 'myprofile',
-          element: <MyProfile></MyProfile>
+          element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
         }
 
       ]
     },
     {
       path: 'employee',
-      element: <EmployeeLayout></EmployeeLayout>,
+      element: <PrivateRoute><EmployeeLayout></EmployeeLayout></PrivateRoute>,  
       children: [
         {
           index: true,
-          element: <Employee></Employee>
-        },
-        {
-          path: 'myasset',
-          element: <MyAsset></MyAsset>
+          element: <PrivateRoute><Employee></Employee></PrivateRoute>
         },
         {
           path: 'assetrequest',
-          element: <AssetRequestPage></AssetRequestPage>
+          element: <PrivateRoute><AssetRequestPage></AssetRequestPage></PrivateRoute>
         },
         {
           path: "myrequestedasset",
-          element: <MyRequestedAssets></MyRequestedAssets>
+          element: <PrivateRoute><MyRequestedAssets></MyRequestedAssets></PrivateRoute>
         },
         {
           path: 'myteam',
-          element: <MyTeams></MyTeams>
+          element: <PrivateRoute><MyTeams></MyTeams></PrivateRoute>
         },
         {
           path: 'myprofile',
-          element: <Profile></Profile>
+          element: <PrivateRoute><Profile></Profile></PrivateRoute>
         }
 
 

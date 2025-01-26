@@ -1,4 +1,5 @@
 
+import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from '@tanstack/react-query';
 
@@ -31,6 +32,9 @@ const { data: teams = [], refetch } = useQuery({
 //   }
   return (
     <div className="p-5">
+      <Helmet>
+        <title>Employee | My Team</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-6">My Team</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

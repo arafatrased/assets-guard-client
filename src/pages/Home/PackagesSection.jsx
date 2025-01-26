@@ -2,9 +2,10 @@ import React from "react";
 
 const PackageCard = ({ title, employees, price }) => {
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+    <div className="bg-gradient-to-r from-white to-orange-100 font-mono shadow-lg rounded-lg p-6 text-center">
       <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-4">Maximum {employees} employees</p>
+      <p className="text-green-700 font-bold mb-4">Maximum {employees} employees</p>
+      <p className="text-gray-600 mb-4 text-justify">You can add whatever number of Employee to extend your company potentiality to manage assets. Here adding this plan will extend the existing access numbers.</p>
       <p className="text-2xl font-semibold text-blue-500 mb-4">${price}</p>
       <button className="btn btn-outline border-b-4 border-b-orange-200">
         Choose Plan

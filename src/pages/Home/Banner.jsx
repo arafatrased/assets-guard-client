@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 export default function Banner() {
     return (
-        <div className=''>
+        <div className='font-mono'>
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper overflow-hidden h-[60vh] md:h-[80vh]">
 
                 <SwiperSlide>

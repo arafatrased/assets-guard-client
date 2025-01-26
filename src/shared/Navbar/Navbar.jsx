@@ -34,7 +34,6 @@ const Navbar = () => {
             console.error('Logout failed:', error);
         }
     };
-    console.log(data);
     useEffect(() => {
         if (!user) handleLogout();
     }, [user]);
@@ -56,6 +55,10 @@ const Navbar = () => {
                 { to: '/admin/myemployeelist', label: 'Employee List' },
                 { to: '/admin/addemployee', label: 'Add Employee' },
                 { to: '/admin/myprofile', label: 'Profile' }
+            ];
+        } else if (data.role === 'unaffiliated') {
+            return [
+                { to: '/employee', label: 'Home' },
             ];
         } else {
             return [
@@ -113,7 +116,7 @@ const Navbar = () => {
                     </div>
 
                     {
-                        data?.companyName ? <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">{data?.companyLogo || data?.companyName}</Link></div> : <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">Asset Guard</Link></div>
+                        data?.companyName ? <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">{<img className='w-12 h-8' src={data?.companyLogo} />}</Link></div> : <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">Asset Guard</Link></div>
                     }
                 </div>
                 <div className="navbar-center hidden lg:flex">

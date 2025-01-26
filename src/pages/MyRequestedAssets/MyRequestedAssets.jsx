@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import DataTable from "react-data-table-component";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import AssetPrintDocument from '../../utilities/AssetPrintDocument';
+import { Helmet } from "react-helmet-async";
 
 const MyRequestedAssets = () => {
   const { user } = useAuth();
@@ -119,6 +120,9 @@ const MyRequestedAssets = () => {
 
   return (
     <div className="p-5 font-mono w-10/12 mx-auto">
+      <Helmet>
+        <title>Employee | My Requested Assets</title>
+      </Helmet>
       <h1 className="text-2xl text-center uppercase font-bold mb-8">My Requested Assets</h1>
 
 

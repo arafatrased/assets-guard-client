@@ -4,6 +4,8 @@ import { AuthContext } from '../../provider/AuthProvider';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 
 const JoinEmployee = () => {
@@ -33,7 +35,7 @@ const JoinEmployee = () => {
                 const userInfo = {
                     email: data.email,
                     displayName: data.empName,
-                    role: 'employee',
+                    role: 'unaffiliated',
                     photoURL: data.photoURL
                 }
                 axiosPublic.post('/users', userInfo)
@@ -44,20 +46,17 @@ const JoinEmployee = () => {
                 })
             })
             .catch(error =>{
-                console.log(error)
+                toast.error(`${error.message}`)
             })   
         })
         .catch(error =>console.log(error))
-       
 
-        
-        
-        
-    
-    
     }
     return (
-        <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto'>
+        <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto font-mono'>
+            <Helmet>
+                <title>Join as Employee</title>
+            </Helmet>
             <h1 className='text-center text-3xl mt-6 font-bold'>Join as Employee</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">

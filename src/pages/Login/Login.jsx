@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const { user: authuser, signIn } = useAuth();
@@ -39,6 +40,9 @@ const Login = () => {
 
     return (
         <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto'>
+            <Helmet>
+                <title>Asset Guard | Login</title>
+            </Helmet>
             <h1 className='text-center text-3xl mt-6 font-bold'>Log In</h1>
             <div className='card-body'>
                 <form onSubmit={handleSubmit(onSubmit)} className="">

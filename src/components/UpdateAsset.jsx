@@ -41,11 +41,10 @@ const UpdateAsset = () => {
             product_quantity,
             added_time
         }
-        console.log(UpdatedAsset);
         axiosPublic.put(`/updateasset/${updateAsset._id}`, UpdatedAsset)
             .then(response => {
                 toast.success("Asset Updated Successfully");
-                navigate("/assetlist");
+                navigate(-1);
             })
             .catch(error => {
                 toast.error("Failed to Update Asset")
