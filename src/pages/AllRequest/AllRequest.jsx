@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import DataTable from 'react-data-table-component';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { Helmet } from 'react-helmet-async';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AllRequestsPage = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
 
-  const { data: requests = [], isLoading } = useQuery({
+  const { data: requests = [], isLoading, refetch } = useQuery({
     queryKey: ['allrequests', search],
     queryFn: async () => {
-      const { data } = await axiosPublic.get('/allrequests', { params: { search } });
+      const { data } = await axiosSecure.get('/allrequests', { params: { search } });
       return data;
     },
     keepPreviousData: true,
   });
 
   const approveMutation = useMutation({
-    mutationFn: (id) => axiosPublic.put(`/approve-request/${id}`),
+    mutationFn: (id) => axiosSecure.put(`/approve-request/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allrequests'] });
     },
   });
 
   const rejectMutation = useMutation({
-    mutationFn: (id) => axiosPublic.put(`/reject-request/${id}`),
+    mutationFn: (id) => axiosSecure.put(`/reject-request/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allrequests'] });
     },
@@ -39,6 +39,10 @@ const AllRequestsPage = () => {
   const handleReject = (id) => {
     rejectMutation.mutate(id);
   };
+  const handleSearch = (value) => {
+    setSearch(value);
+    refetch();
+  }
 
   const columns = [
     {
@@ -57,7 +61,7 @@ const AllRequestsPage = () => {
     },
     {
       name: 'Requester Name',
-      selector: (row) => row.userName,
+      selector: (row) => row.displayName,
     },
     {
       name: 'Request Date',
@@ -96,20 +100,20 @@ const AllRequestsPage = () => {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-6 font-mono">
       <Helmet>
         <title>HR | All Requests</title>
       </Helmet>
-      <h1 className="text-2xl font-bold mb-4">All Requests</h1>
+      <h1 className="text-2xl text-center uppercase mb-8 font-bold">All Requests</h1>
 
 
-      <div className="mb-4">
+      <div className="mb-4 md:w-8/12 mx-auto">
         <input
           type="text"
           placeholder="Search by name or email"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border px-3 py-2 rounded w-full"
+          onChange={(e) => handleSearch(e.target.value)}
+          className="border-2 border-orange-300 px-3 py-2 rounded w-full"
         />
       </div>
 

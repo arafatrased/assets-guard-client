@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import AssetPrintDocument from '../../utilities/AssetPrintDocument';
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 
 const MyRequestedAssets = () => {
   const { user } = useAuth();
@@ -13,7 +14,6 @@ const MyRequestedAssets = () => {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
   const [assetType, setAssetType] = useState("");
-  console.log(search, status, assetType)
 
   const fetchRequests = async () => {
     try {
@@ -22,7 +22,7 @@ const MyRequestedAssets = () => {
       });
       setRequests(data);
     } catch (error) {
-      console.error("Failed to fetch requests:", error);
+      toast.error("Failed to fetch requests:");
     }
   };
 
@@ -35,7 +35,7 @@ const MyRequestedAssets = () => {
       await axiosPublic.put(`/cancel-request/${id}`);
       fetchRequests();
     } catch (error) {
-      console.error("Failed to cancel request:", error);
+      toast.error("Failed to cancel request:");
     }
   };
 
@@ -44,7 +44,7 @@ const MyRequestedAssets = () => {
       await axiosPublic.put(`/return-asset/${id}`);
       fetchRequests();
     } catch (error) {
-      console.error("Failed to return asset:", error);
+      toast.error("Failed to return asset:");
     }
   };
 

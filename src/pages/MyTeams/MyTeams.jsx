@@ -1,16 +1,16 @@
 
 import { Helmet } from "react-helmet-async";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyTeams = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   // Fetch team members from the server
 const { data: teams = [], refetch } = useQuery({
         queryKey: ['teams'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/allemployee', {
+            const res = await axiosSecure.get('/allemployee', {
                 params: {
                     role: 'employee',
                 },

@@ -7,23 +7,25 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 const AssetTable = () => {
     const navigate = useNavigate()
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
     const [assets, setAssets] = useState([]);
     const { data: queryAssets = [], refetch } = useQuery({
         queryKey: ['assets'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/assets');
-            return res.data; // Fetch and return the data
+            const res = await axiosSecure.get('/assets');
+            return res.data; 
         },
     });
     
-    useEffect(() => {
-        setAssets(queryAssets); // Update local state whenever queryAssets changes
-    }, [queryAssets]);
+    // useEffect(() => {
+    //     setAssets(queryAssets);
+    // }, [queryAssets]);
 
 
     const [searchText, setSearchText] = useState('');
@@ -31,7 +33,7 @@ const AssetTable = () => {
     const [filterType, setFilterType] = useState('');
     const [sortOrder, setSortOrder] = useState('asc');
 
-    const filteredAssets = assets
+    const filteredAssets = queryAssets
     .filter(item => {
         const stockStatus = item.product_quantity <= 1 ? 'Out-of-Stock' : 'Available';
         
@@ -80,8 +82,7 @@ const AssetTable = () => {
     };
      // Delete function
      const handleDelete = (id) => {
-        console.log(id);
-        axiosPublic.delete(`/deleteasset/${id}`)
+        axiosSecure.delete(`/deleteasset/${id}`)
         .then(res => {
             refetch();
             toast.success('Asset deleted successfully');
@@ -119,9 +120,7 @@ const AssetTable = () => {
    
 
 
-    // Update function
     const handleUpdate = (id) => {
-        console.log(id);
         navigate(`/updateasset/${id}`);
     };
 

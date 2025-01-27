@@ -5,8 +5,8 @@ import DataTable from "react-data-table-component";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-import { use } from "react";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddEmployee = () => {
   const { user } = useAuth();
@@ -15,13 +15,14 @@ const AddEmployee = () => {
   const [teamMemberCount, setTeamMemberCount] = useState(0);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  // Fetch employees who are not affiliated with any company
+
   const { data, refetch } = useQuery({
     queryKey: ["unaffiliatedEmployees"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/unaffiliated-employees");
+      const res = await axiosSecure.get("/unaffiliated-employees");
       return res.data;
     },
   });
@@ -36,7 +37,7 @@ const AddEmployee = () => {
   });
 
   useEffect(() => {
-    axiosPublic.get('/allemployee').then(res => {
+    axiosSecure.get('/allemployee').then(res => {
       setTeamMemberCount(res.data.length)
     })
   }, [currentUser]);
@@ -49,7 +50,7 @@ const AddEmployee = () => {
     }
   }, [data]);
 
-  // Function to handle adding employees to the team
+
   const handleAddToTeam = () => {
     const updatedEmployees = employees.filter((employee) =>
       selectedEmployees.includes(employee._id)
@@ -61,23 +62,21 @@ const AddEmployee = () => {
         prevState.filter((employee) => !selectedEmployees.includes(employee._id))
       );
     };
-    console.log(updatedEmployees);
     setTeamMemberCount(teamMemberCount + selectedEmployees.length);
 
 
     const updateUser = {
-      emails: updatedEmployees.map(item => item.email), // Collect all emails
+      emails: updatedEmployees.map(item => item.email), 
       companyName: currentUser.companyName,
       role: 'employee',
       companyLogo: currentUser.companyLogo,
     }
 
-    axiosPublic.post('/update-users', updateUser)
+    axiosSecure.post('/update-users', updateUser)
       .then(res => {
         toast.success("Employee added successfully");
       })
-    // Optionally, update your backend with the new team members.
-    // axiosPublic.post('/add-to-team', { employees: updatedEmployees })
+    
     setEmployees((prevState) =>
       prevState.filter((employee) => !selectedEmployees.includes(employee._id))
     );
@@ -85,7 +84,7 @@ const AddEmployee = () => {
     refetch()
   };
 
-  // Function to handle selecting an employee checkbox
+
   const handleSelectEmployee = (id) => {
     setSelectedEmployees((prevSelected) =>
       prevSelected.includes(id)
@@ -99,7 +98,7 @@ const AddEmployee = () => {
     navigate("/packages");
   };
 
-  // Define columns for the employee data table
+
   const columns = [
     {
       name: "Select",
@@ -153,7 +152,7 @@ const AddEmployee = () => {
         </div>
       </div>
 
-      {/* Employee List Section */}
+      {/* Employee List*/}
       <div className="mb-8 p-4 border border-gray-300 rounded-lg">
         <h2 className="text-2xl font-semibold text-center mb-4">Employees</h2>
         <div className="w-9/12 mx-auto">

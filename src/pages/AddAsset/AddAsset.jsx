@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddAsset = () => {
   const [category, setCategory] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const returnableItems = ["Laptop", "Keyboard", "Mouse", "Chair", "Mobile", "Desk"];
   const nonReturnableItems = ["Pen", "Pencil", "Paper", "Diary","Tissue", "Rubber"];
@@ -35,9 +36,8 @@ const AddAsset = () => {
         product_quantity: quantity,
         added_time: new Date()
     }
-    axiosPublic.post('/addassets', asset)
+    axiosSecure.post('/addassets', asset)
     .then(res =>{
-        console.log(res.data);
         toast.success(`${quantity} ${selectedItem} added successfully`);
     });
 
@@ -55,7 +55,7 @@ const AddAsset = () => {
       >
         <h2 className="text-2xl font-mono font-bold mb-4 text-center uppercase">Add New Asset</h2>
 
-        {/* Category Selection */}
+        {/* Category  */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
             Select Category:
@@ -71,7 +71,7 @@ const AddAsset = () => {
           </select>
         </div>
 
-        {/* Item Selection */}
+        {/* Item*/}
         {category && (
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
@@ -98,7 +98,7 @@ const AddAsset = () => {
           </div>
         )}
 
-        {/* Quantity Selection */}
+        {/* Quantity*/}
         {selectedItem && (
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
@@ -114,7 +114,6 @@ const AddAsset = () => {
           </div>
         )}
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="btn btn-outline w-full border-b-4 hover:bg-green-600 border-b-orange-200"

@@ -3,6 +3,8 @@ import { AuthContext } from '../../provider/AuthProvider';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
+
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -11,7 +13,6 @@ const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
-        console.log('toggleDropdown');
         setIsDropdownOpen(!isDropdownOpen);
     }
 
@@ -31,7 +32,7 @@ const Navbar = () => {
             refetch();
             navigate('/');
         } catch (error) {
-            console.error('Logout failed:', error);
+            toast.error('Logout failed:');
         }
     };
     useEffect(() => {
@@ -75,7 +76,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100 font-mono">
+            <div className="navbar bg-base-100 px-4 font-mono">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -141,7 +142,7 @@ const Navbar = () => {
                     {data ? (
                         <>
                             <div>
-                                <img className='w-8 h-8 rounded-full mr-2' src={data?.photoURL} alt="" />
+                                <img referrerPolicy='no-referrer' className='w-8 h-8 rounded-full mr-2' src={data?.photoURL} alt="" />
                             </div>
                             <button onClick={handleLogout} className="btn btn-sm btn-outline">
                                 Logout

@@ -14,7 +14,7 @@ const AssetRequestPage = () => {
     const [selectedAsset, setSelectedAsset] = useState(null);
     const [additionalNotes, setAdditionalNotes] = useState('');
 
-    // Fetch assets with search and filter
+  
     const { data: assets = [], refetch } = useQuery({
         queryKey: ['assets', searchText, filterAvailability, filterType],
         queryFn: async () => {
@@ -32,16 +32,16 @@ const AssetRequestPage = () => {
     // Handle request submission
     const handleRequest = () => {
         const userId = user?.email;
-        console.log(selectedAsset) 
+        const displayName = user?.displayName;
         axiosPublic.post('/request-asset', {
             assetId: selectedAsset._id,
             userId,
+            displayName,
             product_name: selectedAsset.product_name,
             product_type: selectedAsset.product_type,
             additionalNotes,
         }).then(res => {
             toast.success('Request submitted successfully!')
-            console.log(res.data);
             setSelectedAsset(null);
             setAdditionalNotes('');
             refetch();
@@ -57,7 +57,7 @@ const AssetRequestPage = () => {
             </Helmet>
             <h1 className="text-2xl text-center font-bold mb-6 uppercase">Request an Asset</h1>
 
-            {/* Search and Filter Section */}
+            {/* Search and Filter */}
             <div className="flex flex-col md:flex-row justify-between mb-6">
                 <input
                     type="text"
@@ -86,7 +86,7 @@ const AssetRequestPage = () => {
                 </select>
             </div>
 
-            {/* Assets List Section */}
+            {/* Assets List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {assets.map((asset) => (
                     <div
@@ -120,7 +120,7 @@ const AssetRequestPage = () => {
                 ))}
             </div>
 
-            {/* Modal Section */}
+            {/* Modal */}
             {selectedAsset && (
                 <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white rounded-lg p-6 w-1/3">

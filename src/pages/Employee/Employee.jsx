@@ -36,7 +36,6 @@ const Employee = () => {
             return res.data;
         },
     });
-    console.log(monthlyRequests);
 
     return (
         <div className="w-11/12 mx-auto my-5 font-mono">

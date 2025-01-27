@@ -5,10 +5,12 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
     const navigate = useNavigate();
     const { data: userDetail, refetch } = useQuery({
         queryKey: ['user'],
@@ -32,10 +34,8 @@ const MyProfile = () => {
                     displayName,
                     photoURL    
                 }
-                console.log(userInfo);
                 axiosPublic.patch('/users-profile', userInfo)
                     .then(res => {
-                        console.log(res.data);
                         navigate('/admin');
                         refetch();
                     })

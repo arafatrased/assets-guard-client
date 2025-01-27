@@ -5,6 +5,8 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,6 +14,8 @@ const Admin = () => {
 
   const { user } = useAuth()
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
+
   const [pendingRequests, setPendingRequests] = useState([]);
   const [topRequestedItems, setTopRequestedItems] = useState([]);
   const [limitedStockItems, setLimitedStockItems] = useState([]);
@@ -22,17 +26,16 @@ const Admin = () => {
     queryKey: ["recentAdded"],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get("/recent-employees-added");
+        const res = await axiosSecure.get("/recent-employees-added");
         return res.data;
       } catch (error) {
-        console.error("Error fetching recent added employees:", error);
+        toast.error("Error fetching recent added employees:");
         return [];
       }
     },
   });
 
-  console.log(recentAdded);
-  // Fetch Data
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,7 +52,7 @@ const Admin = () => {
         const statsRes = await axiosPublic.get("/returnable-stats");
         setReturnableStats(statsRes.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        toast.error("Error fetching data:");
       }
     };
 
@@ -78,7 +81,7 @@ const Admin = () => {
       </Helmet>
       <h1 className="text-2xl text-center uppercase font-bold mt-8">HR Manager Dashboard</h1>
       <h2 className="text-xl uppercase text-center font-semibold mb-10"><span className="text-green-700">Welcome,</span> <span className="text-orange-700">{user?.displayName}</span></h2>
-      {/* Pending Requests */}
+
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="mb-8 bg-gradient-to-r from-white to-green-100 border-2 border-orange-300 p-3 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Pending Requests : (Recent-5)</h2>
@@ -102,7 +105,7 @@ const Admin = () => {
           </table>
         </div>
 
-        {/* Top Requested Items */}
+ 
         <div className="mb-8 bg-gradient-to-r from-white to-orange-100 border-2 border-orange-300 p-3 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Top Most Requested Items</h2>
           <ul className="list-disc ml-5">
@@ -115,7 +118,7 @@ const Admin = () => {
         </div>
       </div>
 
-      {/* Limited Stock Items */}
+
       <div className="mb-8 bg-gradient-to-r from-white to-orange-100 rounded-xl shadow-lg p-4">
         <h2 className="text-xl font-semibold mb-3">Limited Stock Items (Quantity &lt; 10)</h2>
         <ul className="list-disc ml-5">
@@ -127,7 +130,7 @@ const Admin = () => {
         </ul>
       </div>
 
-      {/* Pie Chart for Returnable vs Non-Returnable */}
+
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-3">Returnable vs Non-Returnable Items</h2>
         <div className="w-1/2 mx-auto">

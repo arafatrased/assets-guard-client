@@ -4,17 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import DataTable from "react-data-table-component";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const EmployeeList = () => {
     const [employees, setEmployees] = useState([]);
     const [teamMemberCount, setTeamMemberCount] = useState(0);
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
 
     const { data, refetch } = useQuery({
         queryKey: ["employees"],
         queryFn: async () => {
-            const res = await axiosPublic.get("/allemployee");
+            const res = await axiosSecure.get("/allemployee");
             return res.data; 
         },
     });
@@ -28,7 +29,7 @@ const EmployeeList = () => {
 
 
     const handleRemove = (id) => {
-        axiosPublic.delete(`/deleteemployee/${id}`).then((res) => {
+        axiosSecure.delete(`/deleteemployee/${id}`).then((res) => {
             toast.success("Employee removed successfully");
             refetch();
         });

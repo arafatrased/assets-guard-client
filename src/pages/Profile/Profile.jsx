@@ -22,10 +22,8 @@ const Profile = () => {
                     displayName,
                     photoURL    
                 }
-                console.log(userInfo);
                 axiosPublic.patch('/users-profile', userInfo)
                     .then(res => {
-                        console.log(res.data);
                         navigate('/employee');
                         refetch();
                     })

@@ -23,11 +23,10 @@ const PackagePage = () => {
         toast.success(`Successfully purchased package for ${members} members!`);
         navigate("/admin/addemployee"); // Redirect to employee page after purchase
       } else {
-        alert("Failed to purchase the package. Please try again.");
+        toast.error("Failed to purchase the package. Please try again.");
       }
     } catch (error) {
-      console.error(error);
-      alert("An error occurred while purchasing the package.");
+      toast.error(error.message);
     }
   };
 

@@ -25,11 +25,10 @@ const JoinEmployee = () => {
     });
 
     const onSubmit = (data) => {
-        console.log(data)
         createUser(data.email, data.password)
         .then(result =>{
             const user = result.user;
-            console.log(user);
+            
             updateUserProfile(data.empName, data.photoURL)
             .then(()=>{
                 const userInfo = {
@@ -40,7 +39,6 @@ const JoinEmployee = () => {
                 }
                 axiosPublic.post('/users', userInfo)
                 .then(res => {
-                    console.log(res.data);
                     navigate('/employee');
                     refetch();
                 })
@@ -49,7 +47,7 @@ const JoinEmployee = () => {
                 toast.error(`${error.message}`)
             })   
         })
-        .catch(error =>console.log(error))
+        .catch(error =>toast.error(error.message))
 
     }
     return (

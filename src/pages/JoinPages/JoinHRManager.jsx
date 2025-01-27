@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 
 
@@ -15,12 +16,10 @@ const JoinHRManager = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext)
 
-    // console.log(user);
     const onSubmit = (data) => {
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 updateUserProfile(data.hrName, 'admin')
                     .then(() => {
                         const userInfo = {
@@ -36,11 +35,11 @@ const JoinHRManager = () => {
                             })
                     })
                     .catch(error => {
-                        console.log(error)
+                        toast.error(error.message)
                     })
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error.message)
             })
 
     }

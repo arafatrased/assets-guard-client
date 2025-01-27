@@ -6,8 +6,8 @@ const Footer = () => {
             <nav>
                 <h6 className="footer-title">Services</h6>
                 <a className="link link-hover">Branding</a>
-                <a className="link link-hover">Design</a>
-                <a className="link link-hover">Marketing</a>
+                <a className="link link-hover">management</a>
+                <a className="link link-hover">about us</a>
                 <a className="link link-hover">Advertisement</a>
             </nav>
             <nav>
@@ -15,7 +15,7 @@ const Footer = () => {
                 <a className="link link-hover">About us</a>
                 <a className="link link-hover">Contact</a>
                 <a className="link link-hover">Jobs</a>
-                <a className="link link-hover">Press kit</a>
+                <a className="link link-hover">app</a>
             </nav>
             <nav>
                 <h6 className="footer-title">Legal</h6>
