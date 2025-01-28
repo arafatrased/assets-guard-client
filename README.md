@@ -1,9 +1,10 @@
 # PROJECT NAME: Assets Guard
 
-# Live Link: 
+# Live Link: https://assets-guard.web.app
 
 **Short Description**
-This is an asset management System.
+This is an asset management System. Where a company can manage its 
+assets with employee to enhance resource management.
 
 ## Library Used: ReactJS,
 

@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         {
           path: 'updateasset/:id',
           element: <PrivateRoute><UpdateAsset></UpdateAsset></PrivateRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
+          loader: ({params}) => fetch(`https://assets-guard-server.vercel.app/assets/${params.id}`)
         }
 
       ]
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         {
           path: 'addemployee',
           element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
-          loader: () => fetch('http://localhost:5000/package')
+          loader: () => fetch('https://assets-guard-server.vercel.app/package')
         },
         {
           path: 'myprofile',

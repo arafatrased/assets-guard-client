@@ -34,7 +34,7 @@ const UpdateAsset = () => {
         const product_type = form.product_type.value;
         const product_name = form.product_name.value;
         const product_quantity = parseInt(form.quantity.value);
-        const added_time = new Date().toLocaleDateString();
+        const added_time = new Date()
         const UpdatedAsset = {
             product_type,
             product_name,
