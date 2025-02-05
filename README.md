@@ -1,4 +1,3 @@
-Here is a structured **README.md** file for your **Asset Management System** project:  
 
 ---
 
@@ -93,8 +92,8 @@ npm start
 - **Database errors?** Ensure the backend server and database connection are correctly configured.  
 
 ## 👨‍💻 Contributors  
-- **[Your Name]** – Developer  
-- **[Contributor Name]** – UI/UX Designer  
+- **[Arafat Rased]** – Developer  
+- **[Arafat Rased]** – UI/UX Designer  
 
 > Want to contribute? Open a pull request or report an issue!  
 
@@ -102,5 +101,3 @@ npm start
 This project is licensed under the **MIT License**.  
 
 ---
-
-This **README.md** is structured to provide a clear and professional overview of the project. Let me know if you need any modifications! 🚀
