@@ -85,27 +85,28 @@ const Admin = () => {
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="mb-8 bg-gradient-to-r from-white to-green-100 border-2 border-orange-300 p-3 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Pending Requests : (Recent-5)</h2>
-          <table className="table-auto w-full border-collapse border border-gray-300">
+          <table className="table-auto w-full border-collapse border border-gray-300 text-sm md:text-base">
             <thead>
               <tr>
-                <th className="border border-gray-300 px-4 py-2">Asset Name</th>
-                <th className="border border-gray-300 px-4 py-2">Requested By (Employee Email)</th>
-                <th className="border border-gray-300 px-4 py-2">Status</th>
+                <th className="border border-gray-300 px-2 md:px-4 py-2">Asset Name</th>
+                <th className="border border-gray-300 px-2 md:px-4 py-2">Requested By (Employee Email)</th>
+                <th className="border border-gray-300 px-2 md:px-4 py-2">Status</th>
               </tr>
             </thead>
             <tbody>
               {pendingRequests.map((request) => (
                 <tr key={request._id}>
-                  <td className="border border-gray-300 px-4 py-2">{request.product_name}</td>
-                  <td className="border border-gray-300 px-4 py-2">{request.userId}</td>
-                  <td className="border border-gray-300 px-4 py-2">{request.status}</td>
+                  <td className="border border-gray-300 px-2 md:px-4 py-2">{request.product_name}</td>
+                  <td className="border border-gray-300 px-2 md:px-4 py-2">{request.userId}</td>
+                  <td className="border border-gray-300 px-2 md:px-4 py-2 whitespace-nowrap">{request.status}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+
         </div>
 
- 
+
         <div className="mb-8 bg-gradient-to-r from-white to-orange-100 border-2 border-orange-300 p-3 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Top Most Requested Items</h2>
           <ul className="list-disc ml-5">
@@ -142,17 +143,17 @@ const Admin = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="mb-8 bg-gradient-to-r from-white to-orange-100 p-4 border-2 border-green-500 rounded-xl">
           <h2 className="text-xl font-semibold mb-3">Recent Employees Added</h2>
- 
+
           <p>Employee details here</p>
           {
             recentAdded.map((item) => (
-              
-                item.role === "employee" && <div key={item._id} className="border border-gray-300 p-2 my-2 rounded-lg">
+
+              item.role === "employee" && <div key={item._id} className="border border-gray-300 p-2 my-2 rounded-lg">
                 <p><span className="font-semibold">Name:</span> {item.displayName}</p>
                 <p><span className="font-semibold">Email:</span> {item.email}</p>
                 <p><span className="font-semibold">Role:</span> {item.role}</p>
               </div>
-              
+
             ))
           }
         </div>
