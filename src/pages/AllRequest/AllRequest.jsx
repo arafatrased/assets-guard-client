@@ -129,7 +129,7 @@ const AllRequestsPage = () => {
           pointerOnHover
           responsive
           noDataComponent={<div>No requests found</div>}
-          className="border rounded shadow"
+          className="border rounded shadow overflow-x-auto"
         />
       )}
     </div>

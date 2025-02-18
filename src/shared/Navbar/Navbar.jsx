@@ -4,17 +4,32 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
+import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    }
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem('theme') === 'dark' ? true : false
+    );
+
+    useEffect(() => {
+        // Apply dark mode class to the document root
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [darkMode]);
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
     const { data, refetch } = useQuery({
         queryKey: ['user'],
@@ -45,18 +60,18 @@ const Navbar = () => {
                 { to: '/', label: 'Home' },
                 { to: '/joinhrmanager', label: 'Join as HR Manager' },
                 { to: '/joinemployee', label: 'Join as Employee' },
-                // { to: '/login', label: 'Login' },
+                { to: '/contact', label: 'Contact Us' },
             ];
-        } else if (data.role === 'admin') {
-            return [
-                { to: '/admin', label: 'Home' },
-                { to: '/admin/assetlist', label: 'Asset List' },
-                { to: '/admin/addasset', label: 'Add Asset' },
-                { to: '/admin/allrequest', label: 'All Request' },
-                { to: '/admin/myemployeelist', label: 'Employee List' },
-                { to: '/admin/addemployee', label: 'Add Employee' },
-                { to: '/admin/myprofile', label: 'Profile' }
-            ];
+            // } else if (data.role === 'admin') {
+            //     return [
+            //         { to: '/admin', label: 'Home' },
+            //         { to: '/admin/assetlist', label: 'Asset List' },
+            //         { to: '/admin/addasset', label: 'Add Asset' },
+            //         { to: '/admin/allrequest', label: 'All Request' },
+            //         { to: '/admin/myemployeelist', label: 'Employee List' },
+            //         { to: '/admin/addemployee', label: 'Add Employee' },
+            //         { to: '/admin/myprofile', label: 'Profile' }
+            //     ];
         } else if (data.role === 'unaffiliated') {
             return [
                 { to: '/employee', label: 'Home' },
@@ -75,8 +90,8 @@ const Navbar = () => {
     const links = getLinks();
 
     return (
-        <div>
-            <div className="navbar bg-base-100 px-4 font-mono">
+        <div className='sticky top-0 z-50 bg-transparent dark:bg-black transition-all dark:text-white duration-300'>
+            <div className="navbar backdrop-blur-md px-4 font-mono">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -128,7 +143,7 @@ const Navbar = () => {
                                     to={to}
                                     className={({ isActive }) =>
                                         isActive
-                                            ? 'flex text-orange-700 hover:font-semibold items-center gap-2 py-2 pr-4'
+                                            ? 'flex text-orange-700 hover:font-semibold items-center dark:text-orange-200 gap-2 py-2 pr-4'
                                             : 'flex items-center gap-2 py-2'
                                     }
                                 >
@@ -139,17 +154,20 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    <div className='m-4 text-2xl flex items-center justify-center'>
+                        <button onClick={toggleDarkMode}>{darkMode === true ? <MdDarkMode /> : <MdOutlineDarkMode />}</button>
+                    </div>
                     {data ? (
                         <>
                             <div>
                                 <img referrerPolicy='no-referrer' className='w-8 h-8 rounded-full mr-2' src={data?.photoURL} alt="" />
                             </div>
-                            <button onClick={handleLogout} className="btn btn-sm btn-outline">
+                            <button onClick={handleLogout} className="btn btn-sm btn-outline dark:text-white">
                                 Logout
                             </button></>
 
                     ) : (
-                        <NavLink to="/login" className="btn btn-sm btn-outline">
+                        <NavLink to="/login" className="btn btn-sm btn-outline bg-orange-50 hover:bg-orange-100 hover:text-black">
                             Login
                         </NavLink>
                     )}

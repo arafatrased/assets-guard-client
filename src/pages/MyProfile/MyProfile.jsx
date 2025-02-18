@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import updatePic from '../../assets/updateProfile.svg'
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const MyProfile = () => {
                 const userInfo = {
                     email: user?.email,
                     displayName,
-                    photoURL    
+                    photoURL
                 }
                 axiosPublic.patch('/users-profile', userInfo)
                     .then(res => {
@@ -50,35 +51,42 @@ const MyProfile = () => {
             <Helmet>
                 <title>Admin | Update Profile</title>
             </Helmet>
-            <h2 className='my-8 font-mono font-bold uppercase text-center'>Update Your Profile</h2>
+            <h2 className='my-8 text-2xl font-mono font-bold uppercase text-center'>Update Your Profile</h2>
+            <div className='grid grid-cols-1 md:grid-cols-2'>
+                <div>
+                    <img src={updatePic} alt="" />
+                </div>
+                <div className='flex items-center justify-center md:border-l-2'>
+                    <form onSubmit={handleProfileUpdate} className='flex flex-col gap-4 items-center'>
+                        <div className="w-full">
+                            <label htmlFor="name" className="text-[15px] font-[400]">
+                                Name <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Your name"
+                                className="border-[#e5eaf2] border rounded-md outline-none px-4 w-full mt-1 py-3 focus:border-[#3B9DF8] transition-colors duration-300"
+                                required
+                            />
+                        </div>
+                        <div className="w-full">
+                            <label htmlFor="name" className="text-[15px] font-[400]">
+                                photoURL <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="photoURL"
+                                placeholder="Your photo URL"
+                                className="border-[#e5eaf2] border rounded-md outline-none px-4 w-full mt-1 py-3 focus:border-[#3B9DF8] transition-colors duration-300"
+                                required
+                            />
+                        </div>
+                        <button type="submit" className='btn btn-outline'>Update</button>
+                    </form>
+                </div>
+            </div>
 
-            <form onSubmit={handleProfileUpdate} className='flex flex-col gap-4 items-center'>
-                <div className="w-[80%]">
-                    <label htmlFor="name" className="text-[15px] font-[400]">
-                        Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        className="border-[#e5eaf2] border rounded-md outline-none px-4 w-full mt-1 py-3 focus:border-[#3B9DF8] transition-colors duration-300"
-                        required
-                    />
-                </div>
-                <div className="w-[80%]">
-                    <label htmlFor="name" className="text-[15px] font-[400]">
-                        photoURL <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        name="photoURL"
-                        placeholder="Your name"
-                        className="border-[#e5eaf2] border rounded-md outline-none px-4 w-full mt-1 py-3 focus:border-[#3B9DF8] transition-colors duration-300"
-                        required
-                    />
-                </div>
-                <button type="submit" className='btn btn-outline'>Update</button>
-            </form>
 
         </div>
     );

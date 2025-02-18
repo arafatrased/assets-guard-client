@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    createBrowserRouter,
-  } from "react-router-dom";
+  createBrowserRouter,
+} from "react-router-dom";
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home/Home';
 import JoinHRManager from '../pages/JoinPages/JoinHRManager';
@@ -25,109 +25,115 @@ import Profile from '../pages/Profile/Profile';
 import AllRequest from '../pages/AllRequest/AllRequest';
 import MyProfile from '../pages/MyProfile/MyProfile';
 import PrivateRoute from './PrivateRoute';
+import Admin2 from '../pages/Admin2/Admin2';
+import ContactPage from '../pages/Contact/ContactPage';
 
 
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      errorElement: <ErrorPage></ErrorPage>,
-      children: [
-        {
-          path: '/',
-          element: <Home></Home>,
-        },
-        {
-          path: 'joinhrmanager',
-          element: <JoinHRManager></JoinHRManager>
-        },
-        {
-          path: 'joinemployee',
-          element: <JoinEmployee></JoinEmployee>
-        },
-        {
-          path: 'login',
-          element: <Login></Login>
-        },
-        
-          
-        {
-          path: '/packages',
-          element: <PrivateRoute><PackagePage></PackagePage></PrivateRoute>,
-        },
-        {
-          path: 'updateasset/:id',
-          element: <PrivateRoute><UpdateAsset></UpdateAsset></PrivateRoute>,
-          loader: ({params}) => fetch(`https://assets-guard-server.vercel.app/assets/${params.id}`)
-        }
-
-      ]
-    },
-    {
-      path: "admin",
-      element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
-      children: [
-        {
-          index: true,
-          element: <PrivateRoute><Admin></Admin></PrivateRoute>
-        },
-        {
-          path: 'assetlist',
-          element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
-        },
-        {
-          path: 'addasset',
-          element: <PrivateRoute><AddAsset></AddAsset></PrivateRoute>
-        },
-        {
-          path: 'allrequest',
-          element: <PrivateRoute><AllRequest></AllRequest></PrivateRoute>
-        },
-        {
-          path: 'myemployeelist',
-          element: <PrivateRoute><EmployeeList></EmployeeList></PrivateRoute>
-        },
-        {
-          path: 'addemployee',
-          element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
-          loader: () => fetch('https://assets-guard-server.vercel.app/package')
-        },
-        {
-          path: 'myprofile',
-          element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
-        }
-
-      ]
-    },
-    {
-      path: 'employee',
-      element: <PrivateRoute><EmployeeLayout></EmployeeLayout></PrivateRoute>,  
-      children: [
-        {
-          index: true,
-          element: <PrivateRoute><Employee></Employee></PrivateRoute>
-        },
-        {
-          path: 'assetrequest',
-          element: <PrivateRoute><AssetRequestPage></AssetRequestPage></PrivateRoute>
-        },
-        {
-          path: "myrequestedasset",
-          element: <PrivateRoute><MyRequestedAssets></MyRequestedAssets></PrivateRoute>
-        },
-        {
-          path: 'myteam',
-          element: <PrivateRoute><MyTeams></MyTeams></PrivateRoute>
-        },
-        {
-          path: 'myprofile',
-          element: <PrivateRoute><Profile></Profile></PrivateRoute>
-        }
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>,
+      },
+      {
+        path: 'joinhrmanager',
+        element: <JoinHRManager></JoinHRManager>
+      },
+      {
+        path: 'joinemployee',
+        element: <JoinEmployee></JoinEmployee>
+      },
+      {
+        path: 'contact',
+        element: <ContactPage></ContactPage>
+      },
+      {
+        path: 'login',
+        element: <Login></Login>
+      },
 
 
-      ]
-    }
-  ]);
+      {
+        path: '/packages',
+        element: <PrivateRoute><PackagePage></PackagePage></PrivateRoute>,
+      },
+      {
+        path: 'updateasset/:id',
+        element: <PrivateRoute><UpdateAsset></UpdateAsset></PrivateRoute>,
+        loader: ({ params }) => fetch(`https://assets-guard-server.vercel.app/assets/${params.id}`)
+      }
+
+    ]
+  },
+  {
+    path: "admin",
+    element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
+    children: [
+      {
+        index: true,
+        element: <PrivateRoute><Admin></Admin></PrivateRoute>
+      },
+      {
+        path: 'assetlist',
+        element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
+      },
+      {
+        path: 'addasset',
+        element: <PrivateRoute><AddAsset></AddAsset></PrivateRoute>
+      },
+      {
+        path: 'allrequest',
+        element: <PrivateRoute><AllRequest></AllRequest></PrivateRoute>
+      },
+      {
+        path: 'myemployeelist',
+        element: <PrivateRoute><EmployeeList></EmployeeList></PrivateRoute>
+      },
+      {
+        path: 'addemployee',
+        element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
+        loader: () => fetch('https://assets-guard-server.vercel.app/package')
+      },
+      {
+        path: 'myprofile',
+        element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+      }
+
+    ]
+  },
+  {
+    path: 'employee',
+    element: <PrivateRoute><EmployeeLayout></EmployeeLayout></PrivateRoute>,
+    children: [
+      {
+        index: true,
+        element: <PrivateRoute><Employee></Employee></PrivateRoute>
+      },
+      {
+        path: 'assetrequest',
+        element: <PrivateRoute><AssetRequestPage></AssetRequestPage></PrivateRoute>
+      },
+      {
+        path: "myrequestedasset",
+        element: <PrivateRoute><MyRequestedAssets></MyRequestedAssets></PrivateRoute>
+      },
+      {
+        path: 'myteam',
+        element: <PrivateRoute><MyTeams></MyTeams></PrivateRoute>
+      },
+      {
+        path: 'myprofile',
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
+      }
+
+
+    ]
+  },
+]);
 
 export default router;

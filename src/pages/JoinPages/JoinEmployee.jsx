@@ -59,42 +59,42 @@ const JoinEmployee = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Full Name <span className='text-red-700'>*</span></span>
+                        <span className="label-text dark:text-white">Full Name <span className='text-red-700'>*</span></span>
                     </label>
-                    <input type="text" {...register("empName", { required: true })} name="empName" placeholder="Full Name" className="input input-bordered"/>
+                    <input type="text" {...register("empName", { required: true })} name="empName" placeholder="Full Name" className="input input-bordered dark:text-gray-400 dark:bg-gray-700"/>
                     {errors.empName && <span className="text-red-600">Name is required</span>}
                 </div>
                 <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Date of Birth <span className='text-red-700'>*</span></span>
+                            <span className="label-text dark:text-white">Date of Birth <span className='text-red-700'>*</span></span>
                         </label>
-                        <input type="date"  {...register("DOF", { required: true })} placeholder="Date of Birth" className="input input-bordered" />
+                        <input type="date"  {...register("DOF", { required: true })} placeholder="Date of Birth" className="input input-bordered dark:text-gray-400 dark:bg-gray-700" />
                         {errors.DOF && <span className="text-red-600">Date of Birth is required</span>}
                 </div>
                 <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Photo URL <span className='text-red-700'>*</span></span>
+                            <span className="label-text dark:text-white">Photo URL <span className='text-red-700'>*</span></span>
                         </label>
-                        <input type="text"  {...register("photoURL")} placeholder="Photo URL" className="input input-bordered" />
+                        <input type="text"  {...register("photoURL")} placeholder="Photo URL" className="input input-bordered dark:text-gray-400 dark:bg-gray-700" />
                         {errors.DOF && <span className="text-red-600">PhotoURL</span>}
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Email <span className='text-red-700'>*</span></span>
+                        <span className="label-text dark:text-white">Email <span className='text-red-700'>*</span></span>
                     </label>
-                    <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                    <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered dark:text-gray-400 dark:bg-gray-700" />
                     {errors.email && <span className="text-red-600">Email is required</span>}
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Password <span className='text-red-700'>*</span></span>
+                        <span className="label-text dark:text-white">Password <span className='text-red-700'>*</span></span>
                     </label>
                     <input type="password"  {...register("password", {
                         required: true,
                         // minLength: 6,
                         // maxLength: 20,
                         // pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                    })} placeholder="password" className="input input-bordered" />
+                    })} placeholder="password" className="input input-bordered dark:text-gray-400 dark:bg-gray-700" />
                     {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                     {/* {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
@@ -104,7 +104,7 @@ const JoinEmployee = () => {
                                 </label> */}
                 </div>
                 <div className="form-control mt-6">
-                    <input className="btn btn-outline border-b-4 hover:bg-green-600 border-b-orange-200" type="submit" value="Join Employee" />
+                    <input className="btn btn-outline dark:text-white border-b-4 hover:bg-green-600 border-b-orange-200" type="submit" value="Join Employee" />
                 </div>
             </form>
         </div>

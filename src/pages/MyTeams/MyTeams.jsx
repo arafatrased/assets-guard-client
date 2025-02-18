@@ -31,11 +31,11 @@ const { data: teams = [], refetch } = useQuery({
 //     );
 //   }
   return (
-    <div className="p-5">
+    <div className="p-5 w-11/12 mx-auto min-h-screen">
       <Helmet>
         <title>Employee | My Team</title>
       </Helmet>
-      <h1 className="text-2xl font-bold mb-6">My Team</h1>
+      <h1 className="text-2xl text-center uppercase font-mono font-bold mb-6">My Team</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {teams.map((member) => (

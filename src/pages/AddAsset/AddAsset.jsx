@@ -45,13 +45,13 @@ const AddAsset = () => {
   };
 
   return (
-    <div className="flex items-center font-mono justify-center min-h-[70vh] bg-gray-100">
+    <div className="flex items-center font-mono justify-center mt-8 bg-gray-100">
       <Helmet>
         <title>HR | Add Asset</title>
       </Helmet>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg w-8/12 lg:w-6/12  mx-auto"
+        className="bg-white p-6 rounded-lg shadow-lg w-11/12 lg:w-11/12 mx-auto"
       >
         <h2 className="text-2xl font-mono font-bold mb-4 text-center uppercase">Add New Asset</h2>
 

@@ -2,14 +2,14 @@ import React from "react";
 
 const PackageCard = ({ title, employees, price }) => {
   return (
-    <div className="bg-gradient-to-r from-white to-orange-100 font-mono shadow-lg rounded-lg p-6 text-center">
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
+    <div className="dark:bg-gray-700 dark:text-white bg-gradient-to-r from-white to-orange-100 font-mono shadow-lg rounded-lg p-6 text-center">
+      <h3 className="text-xl dark:text-black font-bold mb-2">{title}</h3>
       <p className="text-green-700 font-bold mb-4">Maximum {employees} employees</p>
       <p className="text-gray-600 mb-4 text-justify">You can add whatever number of Employee to extend your company potentiality to manage assets. Here adding this plan will extend the existing access numbers.</p>
       <p className="text-2xl font-semibold text-blue-500 mb-4">${price}</p>
-      <button className="btn btn-outline border-b-4 border-b-orange-200">
+      {/* <button className="btn btn-outline dark:bg-gray-700 dark:text-white border-b-4 border-b-orange-200">
         Choose Plan
-      </button>
+      </button> */}
     </div>
   );
 };
@@ -22,7 +22,7 @@ const PackagesSection = () => {
   ];
 
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-12 bg-gray-100 dark:bg-black dark:text-white">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center font-mono uppercase mb-8">Our Packages</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

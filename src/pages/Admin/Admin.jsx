@@ -79,8 +79,7 @@ const Admin = () => {
       <Helmet>
         <title>HR Manager Dashboard</title>
       </Helmet>
-      <h1 className="text-2xl text-center uppercase font-bold mt-8">HR Manager Dashboard</h1>
-      <h2 className="text-xl uppercase text-center font-semibold mb-10"><span className="text-green-700">Welcome,</span> <span className="text-orange-700">{user?.displayName}</span></h2>
+      {/* <h2 className="text-xl uppercase text-center font-semibold mb-10"><span className="text-green-700">Welcome,</span> <span className="text-orange-700">{user?.displayName}</span></h2> */}
 
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="mb-8 bg-gradient-to-r from-white to-green-100 border-2 border-orange-300 p-3 rounded-lg">

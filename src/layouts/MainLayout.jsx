@@ -7,7 +7,7 @@ import Navbar from '../shared/Navbar/Navbar';
 
 const MainLayout = () => {
     return (
-        <div>
+        <div className='dark:bg-black dark:text-white'>
             <Navbar></Navbar>
              <Outlet></Outlet>
              <Toaster />

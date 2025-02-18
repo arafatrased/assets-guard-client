@@ -114,7 +114,7 @@ const EmployeeList = () => {
     if (!data) return <p>Loading...</p>;
 
     return (
-        <div className="w-10/12 mx-auto my-5 font-mono">
+        <div className="w-11/12 mx-auto my-5 font-mono">
           <Helmet>
                 <title>HR | Employee List</title> 
           </Helmet>
@@ -122,6 +122,7 @@ const EmployeeList = () => {
             <p className="mb-4 text-center">Team Member Count: {teamMemberCount}</p>
 
             <DataTable
+                className="overflow-x-auto"
                 title="Employee List"
                 columns={columns}
                 data={employees}

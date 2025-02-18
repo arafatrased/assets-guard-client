@@ -119,7 +119,7 @@ const MyRequestedAssets = () => {
   ];
 
   return (
-    <div className="p-5 font-mono w-10/12 mx-auto">
+    <div className="p-5 font-mono min-h-screen w-11/12 mx-auto">
       <Helmet>
         <title>Employee | My Requested Assets</title>
       </Helmet>
