@@ -38,7 +38,7 @@ const Login = () => {
     };
 
     return (
-        <div className='w-11/12 md:w-8/12 lg:w-6/12 mx-auto'>
+        <div className='w-11/12 md:w-8/12 dark:bg-black dark:text-white lg:w-6/12 mx-auto'>
             <Helmet>
                 <title>Asset Guard | Login</title>
             </Helmet>
@@ -48,21 +48,21 @@ const Login = () => {
 
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Email <span className='text-red-700'>*</span></span>
+                            <span className="label-text dark:bg-black dark:text-white">Email <span className='text-red-700'>*</span></span>
                         </label>
-                        <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                        <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered dark:bg-gray-700 dark:text-white" />
                         {errors.email && <span className="text-red-600">Email is required</span>}
                     </div>
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Password <span className='text-red-700'>*</span></span>
+                            <span className="label-text dark:text-white">Password <span className='text-red-700'>*</span></span>
                         </label>
                         <input type="password"  {...register("password", {
                             required: true,
                             minLength: 6,
                             maxLength: 20,
                             pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                        })} placeholder="password" className="input input-bordered" />
+                        })} placeholder="password" className="input input-bordered dark:bg-gray-700 dark:text-white" />
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                               {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
@@ -72,7 +72,7 @@ const Login = () => {
                               </label> */}
                     </div>
                     <div className="form-control mt-6">
-                        <input className="btn btn-outline border-b-4 hover:bg-green-600 border-b-orange-200" type="submit" value="Log In" />
+                        <input className="btn dark:bg-black dark:text-white btn-outline border-b-4 hover:bg-green-600 border-b-orange-200" type="submit" value="Log In" />
                     </div>
 
                 </form>

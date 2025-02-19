@@ -24,7 +24,7 @@ const AdminHeader = () => {
       if (!user) handleLogOut();
     }, [user]);
   return (
-    <div className='w-full bg-orange-50'>
+    <div className='w-full bg-orange-50 dark:bg-gray-700 dark:text-gray-200'>
       <header className="flex font-mono justify-between items-center md:w-11/12 mx-auto py-4">
         <div className='md:hidden'>
           <div className="dropdown">
@@ -89,7 +89,7 @@ const AdminHeader = () => {
           <span>🔔</span>
           <div className="flex items-center space-x-2">
             <span className="font-medium text-sm md:text-md">{user?.displayName}</span>
-            <img src={user?.photoURL} alt="Profile" className="rounded-full ring-2 ring-orange-200 p-1 w-10 h-10" />
+            <img src={user?.photoURL} alt="Profile" referrerPolicy='no-referrer' className="rounded-full ring-2 ring-orange-200 p-1 w-10 h-10" />
           </div>
         </div>
 

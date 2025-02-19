@@ -75,16 +75,16 @@ const Admin = () => {
   };
 
   return (
-    <div className="p-5 font-mono">
+    <div className="p-5 font-mono dark:bg-black dark:text-white">
       <Helmet>
         <title>HR Manager Dashboard</title>
       </Helmet>
       {/* <h2 className="text-xl uppercase text-center font-semibold mb-10"><span className="text-green-700">Welcome,</span> <span className="text-orange-700">{user?.displayName}</span></h2> */}
 
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="mb-8 bg-gradient-to-r from-white to-green-100 border-2 border-orange-300 p-3 rounded-lg">
-          <h2 className="text-xl font-semibold mb-3">Pending Requests : (Recent-5)</h2>
-          <table className="table-auto w-full border-collapse border border-gray-300 text-sm md:text-base">
+        <div className="mb-8 bg-gradient-to-r from-white to-green-100 border-2 border-orange-300 p-3 rounded-lg dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white">
+          <h2 className="text-xl dark:text-white font-semibold mb-3">Pending Requests : (Recent-5)</h2>
+          <table className="table-auto dark:bg-black dark:text-white w-full border-collapse border border-gray-300 text-sm md:text-base">
             <thead>
               <tr>
                 <th className="border border-gray-300 px-2 md:px-4 py-2">Asset Name</th>
@@ -106,7 +106,7 @@ const Admin = () => {
         </div>
 
 
-        <div className="mb-8 bg-gradient-to-r from-white to-orange-100 border-2 border-orange-300 p-3 rounded-lg">
+        <div className="mb-8 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white bg-gradient-to-r from-white to-orange-100 border-2 border-orange-300 p-3 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Top Most Requested Items</h2>
           <ul className="list-disc ml-5">
             {topRequestedItems.map((item) => (
@@ -119,7 +119,7 @@ const Admin = () => {
       </div>
 
 
-      <div className="mb-8 bg-gradient-to-r from-white to-orange-100 rounded-xl shadow-lg p-4">
+      <div className="mb-8 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white bg-gradient-to-r from-white to-orange-100 rounded-xl shadow-lg p-4">
         <h2 className="text-xl font-semibold mb-3">Limited Stock Items (Quantity &lt; 10)</h2>
         <ul className="list-disc ml-5">
           {limitedStockItems.map((item) => (
@@ -131,16 +131,16 @@ const Admin = () => {
       </div>
 
 
-      <div className="mb-8">
+      <div className="mb-8 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white">
         <h2 className="text-xl font-semibold mb-3">Returnable vs Non-Returnable Items</h2>
-        <div className="w-1/2 mx-auto">
+        <div className="w-1/2 mx-auto dark:text-white">
           <Pie data={pieData} />
         </div>
       </div>
 
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="mb-8 bg-gradient-to-r from-white to-orange-100 p-4 border-2 border-green-500 rounded-xl">
+        <div className="mb-8 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white bg-gradient-to-r from-white to-orange-100 p-4 border-2 border-green-500 rounded-xl">
           <h2 className="text-xl font-semibold mb-3">Recent Employees Added</h2>
 
           <p>Employee details here</p>
@@ -157,9 +157,8 @@ const Admin = () => {
           }
         </div>
 
-        <div className="mb-8 p-4 bg-gradient-to-r from-white to-green-300 border-2 border-green-500 rounded-xl">
+        <div className="mb-8 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white p-4 bg-gradient-to-r from-white to-green-300 border-2 border-green-500 rounded-xl">
           <h2 className="text-xl font-semibold mb-3">Upcoming Events</h2>
-
           <ul>
             <li>Team meeting - 25th Jan</li>
             <li>Deadline - 30th Jan</li>

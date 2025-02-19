@@ -35,7 +35,7 @@ const AsideNav = () => {
     if (!user) handleLogOut();
   }, [user]);
   return (
-    <aside className="w-64 hidden md:inline-block font-mono bg-white shadow-md">
+    <aside className="w-64 hidden md:inline-block dark:bg-gray-700 dark:text-gray-100 font-mono bg-white shadow-md">
       <div className='border-b-2 py-6 p-4'>
         {
           data?.companyName ? <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">{<img className='w-full h-24 object-cover' src={data?.companyLogo} />}</Link></div> : <div className='p-1 border-r-2 border-b-2 border-r-orange-400 border-b-slate-400'><Link className="text-xl uppercase">Asset Guard</Link></div>

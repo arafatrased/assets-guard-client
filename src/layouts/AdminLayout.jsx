@@ -8,7 +8,7 @@ import AdminHeader from './../pages/Admin/AdminHeader';
 
 const AdminLayout = () => {
     return (
-        <div className="min-h-screen flex bg-gray-100">
+        <div className="min-h-screen flex bg-gray-100 dark:bg-black dark:text-white">
             <AsideNav></AsideNav>
             <div className="flex-1 p-2">
                 <AdminHeader></AdminHeader>

@@ -38,7 +38,7 @@ const Employee = () => {
     });
 
     return (
-        <div className="w-11/12 mx-auto my-5 font-mono">
+        <div className="w-11/12 dark:bg-black dark:text-white mx-auto my-5 font-mono">
             <Helmet>
                 <title>Employee | Dashboard</title>
             </Helmet>
@@ -51,7 +51,7 @@ const Employee = () => {
 
             <div className="w-10/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Pending Requests Section */}
-                <section className="mb-8 bg-gradient-to-r from-white to-orange-100 flex flex-col gap-2 items-center justify-center border-2 border-orange-500 p-4 rounded-lg">
+                <section className="mb-8 bg-gradient-to-r from-white to-orange-100 flex flex-col dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white gap-2 items-center justify-center border-2 border-orange-500 p-4 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">My Pending Requests</h2>
                     {pendingRequests.length > 0 ? (
                         <ul className="list-disc list-inside">
@@ -67,7 +67,7 @@ const Employee = () => {
                 </section>
 
                 {/* Monthly Requests Section */}
-                <section className="mb-8 bg-gradient-to-r from-white to-orange-100 flex flex-col gap-2 items-center justify-center border-2 border-orange-500 p-4 rounded-lg">
+                <section className="mb-8 bg-gradient-to-r from-white to-orange-100 flex flex-col gap-2 dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white items-center justify-center border-2 border-orange-500 p-4 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">My Monthly Requests</h2>
                     {monthlyRequests.length > 0 ? (
                         <ul className="list-decimal list-inside">
@@ -84,18 +84,18 @@ const Employee = () => {
 
             </div>
 
-            <section className="mb-8">
+            <section className="mb-8 ">
                 <h2 className="text-xl font-semibold my-8 text-center uppercase">Remainders</h2>
                 {
                     userStatus.role === 'unaffiliated' ? <p className="text-center text-red-700">You are not affiliated to any team. Contact HR for more information.</p> : <div className="w-10/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Calendar */}
-                        <div>
+                        <div className='dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white'>
                             <h3 className="text-lg font-semibold mb-2">Calendar</h3>
-                            <Calendar value={selectedDate} onChange={setSelectedDate} />
+                            <Calendar className='dark:bg-black dark:text-white' value={selectedDate} onChange={setSelectedDate} />
                         </div>
 
                  
-                        <div className='flex bg-gradient-to-r from-white to-orange-100 flex-col gap-2 items-center justify-center border-2 border-orange-500 p-4 rounded-lg'>
+                        <div className='flex bg-gradient-to-r from-white to-orange-100 flex-col dark:bg-gradient-to-r dark:from-black dark:to-gray-700 dark:text-white gap-2 items-center justify-center border-2 border-orange-500 p-4 rounded-lg'>
                             <h3 className="text-lg font-semibold mb-2">Events</h3>
                             <ul>
                                 <li>Team meeting - 25th Feb</li>

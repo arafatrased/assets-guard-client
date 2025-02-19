@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 
 const EmployeeLayout = () => {
     return (
-        <div>
+        <div className='dark:bg-black dark:text-white'>
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Toaster />

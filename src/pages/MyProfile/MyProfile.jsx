@@ -9,7 +9,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import updatePic from '../../assets/updateProfile.svg'
 
 const MyProfile = () => {
-    const { user, updateUserProfile } = useContext(AuthContext);
+    const { user, updateUserProfile, setLoading } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate();
@@ -40,6 +40,7 @@ const MyProfile = () => {
                         navigate('/admin');
                         refetch();
                     })
+                setLoading(false)
                 toast.success('Profile updated successfully');
             })
             .catch((error) => {

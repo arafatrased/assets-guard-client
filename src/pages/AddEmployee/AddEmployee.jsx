@@ -153,10 +153,11 @@ const AddEmployee = () => {
       </div>
 
       {/* Employee List*/}
-      <div className="mb-8 p-4 border border-gray-300 rounded-lg">
+      <div className="mb-8 p-4 border dark:bg-black dark:text-white border-gray-300 rounded-lg">
         <h2 className="text-2xl font-semibold text-center mb-4">Employees</h2>
         <div className="w-9/12 mx-auto">
           <DataTable
+            className="dark:bg-black dark:text-white"
             title="Unaffiliated Employees"
             columns={columns}
             data={employees}
@@ -169,7 +170,7 @@ const AddEmployee = () => {
         <div className="text-center mt-4">
           <button
             onClick={handleAddToTeam}
-            className="btn btn-outline border-b-4 border-b-orange-200"
+            className="btn btn-outline dark:bg-black dark:text-white border-b-4 border-b-orange-200"
           >
             Add Selected Employees to Team
           </button>

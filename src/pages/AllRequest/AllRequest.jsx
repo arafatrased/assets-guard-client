@@ -100,11 +100,11 @@ const AllRequestsPage = () => {
   ];
 
   return (
-    <div className="p-6 font-mono">
+    <div className="p-6 font-mono dark:bg-black dark:text-white">
       <Helmet>
         <title>HR | All Requests</title>
       </Helmet>
-      <h1 className="text-2xl text-center uppercase mb-8 font-bold">All Requests</h1>
+      <h1 className="text-2xl dark:bg-black dark:text-white text-center uppercase mb-8 font-bold">All Requests</h1>
 
 
       <div className="mb-4 md:w-8/12 mx-auto">
@@ -113,7 +113,7 @@ const AllRequestsPage = () => {
           placeholder="Search by name or email"
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
-          className="border-2 border-orange-300 px-3 py-2 rounded w-full"
+          className="border-2 dark:bg-black dark:text-white border-orange-300 px-3 py-2 rounded w-full"
         />
       </div>
 
@@ -129,7 +129,7 @@ const AllRequestsPage = () => {
           pointerOnHover
           responsive
           noDataComponent={<div>No requests found</div>}
-          className="border rounded shadow overflow-x-auto"
+          className="border dark:bg-black dark:text-white rounded shadow overflow-x-auto"
         />
       )}
     </div>

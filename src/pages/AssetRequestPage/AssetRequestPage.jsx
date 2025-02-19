@@ -62,13 +62,13 @@ const AssetRequestPage = () => {
                 <input
                     type="text"
                     placeholder="Search by asset name"
-                    className="border px-4 py-2 rounded w-full md:w-1/3"
+                    className="border px-4 dark:bg-gray-700  py-2 rounded w-full md:w-1/3"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
 
                 <select
-                    className="border px-4 py-2 rounded w-full md:w-1/4 mt-4 md:mt-0"
+                    className="border px-4 dark:bg-gray-700  py-2 rounded w-full md:w-1/4 mt-4 md:mt-0"
                     onChange={(e) => setFilterAvailability(e.target.value)}
                 >
                     <option value="">Filter by Availability</option>
@@ -77,7 +77,7 @@ const AssetRequestPage = () => {
                 </select>
 
                 <select
-                    className="border px-4 py-2 rounded w-full md:w-1/4 mt-4 md:mt-0"
+                    className="border dark:bg-gray-700 px-4 py-2 rounded w-full md:w-1/4 mt-4 md:mt-0"
                     onChange={(e) => setFilterType(e.target.value)}
                 >
                     <option value="">Filter by Type</option>
@@ -110,7 +110,7 @@ const AssetRequestPage = () => {
                         </p>
                         <h2 className="font-semibold">Available Quantity: {asset.product_quantity}</h2>
                         <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+                            className="bg-orange-50 text-black px-4 py-2 rounded hover:bg-orange-100 mt-4"
                             disabled={asset.product_quantity === 0}
                             onClick={() => setSelectedAsset(asset)}
                         >
@@ -123,13 +123,13 @@ const AssetRequestPage = () => {
             {/* Modal */}
             {selectedAsset && (
                 <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white rounded-lg p-6 w-1/3">
-                        <h2 className="text-xl font-semibold mb-4">
+                    <div className="bg-white dark:bg-gray-700 rounded-lg p-6 w-1/3">
+                        <h2 className="text-xl dark:text-white font-semibold mb-4">
                             Request {selectedAsset.product_name}
                         </h2>
                         <textarea
                             placeholder="Add additional notes (optional)"
-                            className="border px-4 py-2 rounded w-full mb-4"
+                            className="border dark:bg-gray-500 px-4 py-2 rounded w-full mb-4"
                             value={additionalNotes}
                             onChange={(e) => setAdditionalNotes(e.target.value)}
                         />
@@ -141,7 +141,7 @@ const AssetRequestPage = () => {
                                 Cancel
                             </button>
                             <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                className="bg-orange-50 text-black px-4 py-2 rounded hover:bg-orange-100"
                                 onClick={handleRequest}
                             >
                                 Request
